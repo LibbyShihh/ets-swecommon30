@@ -1,4 +1,4 @@
-FROM tomcat:7.0-jre8
+FROM tomcat:9.0-jdk17
 
 # add TEAM engine webapp
 ADD maven/dependency/teamengine-web-*.war /root/

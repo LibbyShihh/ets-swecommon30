@@ -18,5 +18,10 @@
       <class name="org.opengis.cite.swecommon30.SuitePreconditions" />
     </classes>
   </test>
+  <test name="A.1 Core Concepts - Data Representation (/conf/core)">
+    <classes>
+      <class name="org.opengis.cite.swecommon30.jsonschema.CoreScalarComponentsTest" />
+    </classes>
+  </test>
   <!-- Add test sets for other conformance classes/levels -->
 </suite>

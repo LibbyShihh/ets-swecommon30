@@ -68,6 +68,8 @@ public class JsonSimpleComponentsTest {
         Assert.assertNotNull(testSubject, "No JSON document was supplied.");
 
         String actualType = testSubject.path("type").asText();
+        // SKIP (not FAIL) for other roots such as SensorML. Whether to FAIL, or to extract SWE Common
+        // components embedded in them, is pending confirmation with OGC (see issue #9).
         if (!SWE_COMMON_TYPES.contains(actualType)) {
             throw new SkipException(String.format(
                     "The test subject's root type is '%s', not a SWE Common component or DataStream.",

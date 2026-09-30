@@ -13,6 +13,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
@@ -41,10 +42,10 @@ public class JsonSimpleComponentsTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private JsonNode testSubject;
+    private File testSubjectFile;
 
     /**
-     * Obtains the downloaded IUT document from the suite context.
+     * Obtains the downloaded IUT document file reference from the suite context.
      *
      * @param testContext TestNG test context
      */
@@ -52,12 +53,7 @@ public class JsonSimpleComponentsTest {
     public void obtainTestSubject(ITestContext testContext) {
         Object subject = testContext.getSuite().getAttribute(SuiteAttribute.TEST_SUBJ_FILE.getName());
         Assert.assertTrue(subject instanceof File, "The test subject is not available as a file.");
-        File testSubjectFile = (File) subject;
-        try {
-            this.testSubject = objectMapper.readTree(testSubjectFile);
-        } catch (IOException e) {
-            throw new SkipException("The test subject could not be read as JSON: " + e.getMessage());
-        }
+        this.testSubjectFile = (File) subject;
     }
 
     /**
@@ -65,7 +61,15 @@ public class JsonSimpleComponentsTest {
      */
     @Test(description = "Implements Abstract Test A.54 (/conf/json-simple-components/schema-valid)")
     public void schemaValid() {
-        Assert.assertNotNull(testSubject, "No JSON document was supplied.");
+        JsonNode testSubject;
+        try {
+            testSubject = objectMapper.readTree(testSubjectFile);
+        } catch (JsonProcessingException e) {
+            Assert.fail("The test subject is not well-formed JSON: " + e.getMessage());
+            return;
+        } catch (IOException e) {
+            throw new SkipException("The test subject could not be read: " + e.getMessage());
+        }
 
         String actualType = testSubject.path("type").asText();
         // SKIP (not FAIL) for other roots such as SensorML. Whether to FAIL, or to extract SWE Common

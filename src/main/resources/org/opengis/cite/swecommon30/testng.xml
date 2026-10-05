@@ -33,5 +33,10 @@
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonChoiceComponentsTest" />
     </classes>
   </test>
+  <test name="A.13 Geometry Components JSON Schema (/conf/json-geom-components)">
+    <classes>
+      <class name="org.opengis.cite.swecommon30.jsonschema.JsonGeomComponentsTest" />
+    </classes>
+  </test>
   <!-- Add test sets for other conformance classes/levels -->
 </suite>

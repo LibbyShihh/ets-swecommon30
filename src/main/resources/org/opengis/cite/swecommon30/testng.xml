@@ -28,6 +28,11 @@
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonSimpleComponentsTest" />
     </classes>
   </test>
+  <test name="A.10 Record Components JSON Schema (/conf/json-record-components)">
+    <classes>
+      <class name="org.opengis.cite.swecommon30.jsonschema.JsonRecordComponentsTest" />
+    </classes>
+  </test>
   <test name="A.11 Choice Components JSON Schema (/conf/json-choice-components)">
     <classes>
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonChoiceComponentsTest" />

@@ -1,0 +1,16 @@
+{
+  "type": "DataRecord",
+  "label": "Platform State",
+  "fields": [
+    {
+      "name": "location",
+      "type": "Vector",
+      "definition": "http://www.opengis.net/def/property/OGC/0/PlatformLocation",
+      "label": "Platform Location",
+      "coordinates": [
+        { "name": "lat", "type": "Quantity", "definition": "http://sensorml.com/ont/swe/property/GeodeticLatitude", "label": "Latitude", "axisID": "Lat", "uom": { "code": "deg" } },
+        { "name": "lon", "type": "Quantity", "definition": "http://sensorml.com/ont/swe/property/Longitude", "label": "Longitude", "axisID": "Lon", "uom": { "code": "deg" } }
+      ]
+    }
+  ]
+}

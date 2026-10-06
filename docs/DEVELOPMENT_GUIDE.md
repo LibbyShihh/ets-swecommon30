@@ -2,82 +2,101 @@
 
 本文件說明 `ets-swecommon30` Repository 的技術結構與實作方式，包含 Java Class / package 的放置原則、JSON Schema、測試資料、本機測試方式與實作範例。
 
-工作流程、Issue、Branch 與 Pull Request 的管理方式，請以交接文件為準。
+工作流程、Issue、Branch、Pull Request 與合併責任，請以 [`ONBOARDING_GUIDE.md`](ONBOARDING_GUIDE.md) 為準；module 依賴、validator 使用與打包方式可參考 [`swecommon-validation-module.md`](swecommon-validation-module.md)；本文件僅說明技術開發與實作細節。
 
 ---
 
 ## 1. 專案技術結構
 
-與 Abstract Test 實作最相關的內容主要分成三個區域：
+Issue #9 後，本 Repository 是由根目錄 Maven parent 管理的 multi-module 專案。兩個 module 的責任必須分開：
+
+| Module | 責任 |
+|---|---|
+| `swecommon30-ets` | TEAM Engine、TestNG、IUT 取得、Suite Context、OGC Abstract Test、測試結果與錯誤提示 |
+| `swecommon30-validator` | 可重用的 JSON 解析、JSON Schema 載入與驗證、Validation Error 格式化，以及 SWE Common JSON Schema Resource |
+
+依賴方向固定為：
 
 ```text
-src/main/java
-→ Java Test、TestNG 執行邏輯與共用工具
-
-src/main/resources
-→ JSON Schema、TestNG 設定與執行時資源
-
-src/test/resources
-→ 開發階段使用的測試資料
+swecommon30-ets
+        ↓ depends on
+swecommon30-validator
 ```
+
+`SweCommonJsonSchemaValidator` 不應依賴 ETS、TestNG 或 TEAM Engine；特定 Abstract Test 的 PASS / FAIL / SKIP 語意也不應放進 validator module。
 
 目前主要結構：
 
 ```text
 ets-swecommon30/
-├── pom.xml
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── org/opengis/cite/swecommon30/
-│   │   │       ├── jsonschema/
-│   │   │       ├── datarecord/
-│   │   │       ├── util/
-│   │   │       ├── BaseJsonSchemaValidatorTest.java
-│   │   │       ├── SuiteFixtureListener.java
-│   │   │       ├── SuiteAttribute.java
-│   │   │       ├── TestNGController.java
-│   │   │       └── ...
-│   │   │
-│   │   ├── resources/
-│   │   │   └── org/opengis/cite/swecommon30/
-│   │   │       ├── jsonschema/
-│   │   │       ├── testng.xml
-│   │   │       └── ...
-│   │   │
-│   │   └── config/
-│   │       └── test-run-props.xml
-│   │
-│   └── test/
-│       └── resources/
-│           └── jsondata/
-│               ├── valid/
-│               └── invalid/
+├── pom.xml                              ← Maven parent，packaging = pom
+├── swecommon30-validator/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/java/
+│       │   └── org/opengis/cite/swecommon30/validation/
+│       │       └── SweCommonJsonSchemaValidator.java
+│       └── main/resources/
+│           └── org/opengis/cite/swecommon30/jsonschema/
+│               └── sweCommon/3.0/json/
+│                   ├── Boolean.json
+│                   ├── Category.json
+│                   ├── Count.json
+│                   ├── Quantity.json
+│                   ├── Text.json
+│                   └── ...
 │
-└── ...
+└── swecommon30-ets/
+    ├── pom.xml
+    ├── src/
+    │   ├── main/java/
+    │   │   └── org/opengis/cite/swecommon30/
+    │   │       ├── jsonschema/          ← OGC Abstract Test implementations
+    │   │       ├── datarecord/
+    │   │       ├── util/
+    │   │       ├── SuiteFixtureListener.java
+    │   │       ├── SuiteAttribute.java
+    │   │       ├── TestNGController.java
+    │   │       └── ...
+    │   ├── main/resources/              ← ETS runtime resources
+    │   ├── main/config/                 ← ETS and TEAM Engine configuration
+    │   │   └── test-run-props.xml
+    │   └── test/resources/
+    │       └── jsondata/                ← ETS development test data
+    │           ├── valid/
+    │           └── invalid/
+    └── ...
 ```
+
+新增程式前，先判斷它屬於 ETS 執行流程，還是可被不同 ETS 重用的 validation 能力；不要因為輸入是 JSON，就自動將程式放入同一個 module。
 
 ---
 
 ## 2. Java Class 與 package 放置原則
 
-主要 Java 程式位於：
+ETS 的 Abstract Test 與執行流程 Java 程式位於：
 
 ```text
-src/main/java/org/opengis/cite/swecommon30/
+swecommon30-ets/src/main/java/org/opengis/cite/swecommon30/
 ```
 
-新增 Class 前，先確認這個 Class 的用途，再決定應放在哪一個 package。
+可重用的 validation Java 程式位於：
+
+```text
+swecommon30-validator/src/main/java/org/opengis/cite/swecommon30/
+```
+
+新增 Class 前，先確認這個 Class 的用途與 module 責任，再決定應放在哪一個 package。
 
 ### 2.1 `jsonschema/`
 
 路徑：
 
 ```text
-src/main/java/org/opengis/cite/swecommon30/jsonschema/
+swecommon30-ets/src/main/java/org/opengis/cite/swecommon30/jsonschema/
 ```
 
-此 package 主要放置與 JSON Schema Validation 相關的 Abstract Test。
+此 package 主要放置與 JSON Schema Validation 相關的 OGC Abstract Test。它負責 ETS 測試流程、IUT 與 Component Type 判斷，以及 TestNG 的 PASS / FAIL / SKIP 結果語意；可重用的 Schema 驗證能力則由 `swecommon30-validator` 提供。
 
 目前例如：
 
@@ -90,27 +109,27 @@ A.2～A.6 的實作位於此 Class 中。
 這類 Test 的典型流程：
 
 ```text
-讀取測試 JSON
+ETS 取得測試 JSON
         ↓
-確認 Component Type
+確認 Component Type 與測試適用性
         ↓
-載入對應 JSON Schema
+呼叫 swecommon30-validator
         ↓
-執行 Schema Validation
+validator 載入並執行對應 JSON Schema
         ↓
-PASS / FAIL
+ETS 回報 PASS / FAIL / SKIP
 ```
 
-如果新的 Abstract Test 主要是在驗證 JSON structure、JSON Schema、Component Type 或 Schema validity，可以優先確認是否適合放在 `jsonschema/`。
+如果新的 Abstract Test 主要是在驗證 JSON structure、JSON Schema、Component Type 或 Schema validity，可以優先確認是否適合放在 `swecommon30-ets` 的 `jsonschema/`。
 
-但不要只因為輸入資料是 JSON，就直接將 Class 放進 `jsonschema/`。仍應先閱讀 Test Purpose / Test Method，並確認專案中是否已有更接近的實作。
+但不要只因為輸入資料是 JSON，就直接將 Class 放進 `jsonschema/`。若是可被多個 ETS 重用的 JSON 解析、Schema 載入、Schema validation 或 Validation Error 格式化，應放在 `swecommon30-validator`，而不是 ETS 的 `util/`。仍應先閱讀 Test Purpose / Test Method，並確認專案中是否已有更接近的實作。
 
 ### 2.2 `datarecord/`
 
 路徑：
 
 ```text
-src/main/java/org/opengis/cite/swecommon30/datarecord/
+swecommon30-ets/src/main/java/org/opengis/cite/swecommon30/datarecord/
 ```
 
 此目錄目前放置與 DataRecord 相關的測試實作，例如：
@@ -126,7 +145,7 @@ DataRecordTest.java
 路徑：
 
 ```text
-src/main/java/org/opengis/cite/swecommon30/util/
+swecommon30-ets/src/main/java/org/opengis/cite/swecommon30/util/
 ```
 
 `util` 用來放置多個 Test 或 Class 共用的工具邏輯。
@@ -155,7 +174,7 @@ URIUtils
 → URI 解析與資源取得
 
 ValidationUtils
-→ 共用 Validation 邏輯
+→ ETS 內共用的既有 Validation 輔助邏輯；可重用 JSON Schema validation 應放在 validator module
 
 XMLUtils
 → XML 處理
@@ -177,19 +196,18 @@ Abstract Test 本身不應放進 `util/`。
 路徑：
 
 ```text
-src/main/java/org/opengis/cite/swecommon30/
+swecommon30-ets/src/main/java/org/opengis/cite/swecommon30/
 ```
 
 此層包含整個 ETS 共用的 Class，例如：
 
 ```text
-BaseJsonSchemaValidatorTest.java
 SuiteFixtureListener.java
 SuiteAttribute.java
 TestNGController.java
 ```
 
-這些 Class 通常不是單一 Abstract Test 的實作，而是 Test Suite 執行流程使用的共用功能。
+這些 Class 通常不是單一 Abstract Test 的實作，而是 Test Suite 執行流程使用的共用功能。可重用的 `BaseJsonSchemaValidatorTest` 與 `SweCommonJsonSchemaValidator` 則屬於 `swecommon30-validator` module，不能放入 ETS 的 root package。
 
 例如 Test Suite 會透過 `SuiteFixtureListener` 取得 `iut` 指定的測試資源，並將測試檔案放入 TestNG Suite Context。
 
@@ -226,30 +244,33 @@ Abstract Test
 可使用以下原則：
 
 ```text
-JSON Schema Validation
-→ 優先查看 jsonschema/
+OGC Abstract Test / TestNG 流程
+→ swecommon30-ets/src/main/java/.../
+
+JSON Schema Validation 的可重用邏輯
+→ swecommon30-validator/src/main/java/.../validation/
 
 特定 Component / 功能 Test
-→ 查看是否已有對應 package
+→ swecommon30-ets 中是否已有對應 package
 
-多個 Test 共用工具邏輯
-→ util/
+ETS 內多個 Test 共用的執行工具
+→ swecommon30-ets/src/main/java/.../util/
 
 JSON Schema Resource
-→ src/main/resources/.../jsonschema/
+→ swecommon30-validator/src/main/resources/.../jsonschema/
 
-開發測試用 JSON
-→ src/test/resources/jsondata/
+ETS 開發測試用 JSON
+→ swecommon30-ets/src/test/resources/jsondata/
 ```
 
 ---
 
 ## 4. JSON Schema Resource 與用途
 
-SWE Common 3.0 使用的 JSON Schema 主要位於：
+SWE Common 3.0 使用的 JSON Schema 主要位於 validator module：
 
 ```text
-src/main/resources/
+swecommon30-validator/src/main/resources/
 └── org/opengis/cite/swecommon30/
     └── jsonschema/
         └── sweCommon/
@@ -310,37 +331,49 @@ OGC Requirement
         ↓
 OGC 提供的 JSON Schema
         ↓
-Java 載入 Schema
+swecommon30-validator 載入 Schema
         ↓
-schema.validate(testSubject)
+validator.validate(testSubject, schemaName)
         ↓
-PASS / FAIL
+swecommon30-ets 回報 PASS / FAIL / SKIP
 ```
 
-本專案中的 SWE Common 3.0 JSON Schema 通常由 OGC 的標準相關資源提供，並已收錄在 Repository 的 `src/main/resources` 中。
+本專案中的 SWE Common 3.0 JSON Schema 通常由 OGC 的標準相關資源提供，並已收錄在 `swecommon30-validator/src/main/resources` 中。Schema 會隨 validator JAR 提供給使用它的 ETS module。
 
-實作時應優先使用 Repository 內既有的 OGC Schema，不應為了單一 Issue 重新建立一份重複的 Schema，也不應直接修改 Schema 來配合 Java 實作。
+實作時應優先使用 Repository 內既有的 OGC Schema，不應為了單一 Issue 重新建立一份重複的 Schema，也不應直接修改 Schema 來配合 Java 實作。若缺少 Schema 無法表達的 Requirement，應先確認是否需要在對應的 ETS Abstract Test 補充 Java 驗證，而不是把 ETS-specific 邏輯放入 validator。
 
 ### 4.2 Schema Validation 與 Java 的責任
 
-若某個 Abstract Test 的驗證條件已完整包含在對應 JSON Schema 中，Java Test 通常只需要負責：
+若某個 Abstract Test 的驗證條件已完整包含在對應 JSON Schema 中，責任通常分成兩層：
 
-1. 取得測試資料。
+`swecommon30-ets` 的 Abstract Test 負責：
+
+1. 透過 TestNG 與 Suite Context 取得測試資料。
 2. 確認目前測試對象是否屬於該 Test 的範圍。
-3. 載入對應 JSON Schema。
-4. 執行 `schema.validate(...)`。
-5. 將 Validation Error 轉換成 Test 的 PASS / FAIL 結果。
+3. 將 Abstract Test 編號、Conformance URI 與預期 Component Type 放入結果訊息。
+4. 將資料驗證失敗、執行問題與 Not applicable SKIP 分開回報。
+
+`swecommon30-validator` 的共用元件負責：
+
+1. 讀取 JSON。
+2. 載入對應 JSON Schema。
+3. 執行 `validate(document, schemaName)`。
+4. 格式化 `ValidationMessage`。
+
+ETS 不應在每個 Abstract Test 重複實作相同的 JSON Schema 載入與驗證流程。
 
 例如 A.2 Boolean：
 
 ```text
 Boolean JSON
         ↓
-載入 Boolean.json
+swecommon30-ets 確認 type = Boolean
         ↓
-schema.validate(testSubject)
+swecommon30-validator 載入 Boolean.json
         ↓
-PASS / FAIL
+validator.validate(testSubject, "Boolean.json")
+        ↓
+ETS PASS / FAIL / SKIP
 ```
 
 這種情況下，不需要另外在 Java 中重複撰寫：
@@ -403,10 +436,10 @@ PASS / FAIL
 1. 閱讀 Abstract Test 的 **Test Purpose**。
 2. 閱讀 **Test Method**。
 3. 確認要驗證的 Component / Representation。
-4. 到 JSON Schema 目錄尋找可能對應的 Schema。
+4. 到 `swecommon30-validator/src/main/resources/.../jsonschema/` 尋找可能對應的 Schema。
 5. 打開 Schema，確認其中的規則是否符合 Test Method。
 6. 若 Schema 使用 `$ref` 引用其他 Schema，也要確認引用關係。
-7. 最後才決定 Java Test 應載入哪個 Schema。
+7. 最後才決定 ETS Abstract Test 要傳給 validator 的 Schema 檔名。
 
 確認 Schema 時可特別查看：
 
@@ -460,7 +493,7 @@ Boolean.json
 實際檔案位置：
 
 ```text
-src/main/resources/
+swecommon30-validator/src/main/resources/
 └── org/opengis/cite/swecommon30/
     └── jsonschema/
         └── sweCommon/
@@ -475,23 +508,23 @@ Java Resource Path：
 /org/opengis/cite/swecommon30/jsonschema/sweCommon/3.0/json/Boolean.json
 ```
 
-目前 `CoreScalarComponentsTest.java` 使用：
+`CoreScalarComponentsTest.java` 不直接負責載入 Schema；它將 Schema 檔名傳給 validator。`SweCommonJsonSchemaValidator` 以 validator JAR 內的 Resource Root 載入對應 Resource：
 
 ```java
 private static final String SCHEMA_ROOT =
         "/org/opengis/cite/swecommon30/jsonschema/sweCommon/3.0/json/";
 ```
 
-再搭配 Schema 檔名載入對應 Resource。
+ETS 只需要傳入例如 `Boolean.json`，不應在 ETS module 另存一份相同的 SWE Common Schema。
 
 ---
 
 ## 7. JSON Example
 
-Repository 內已有 SWE Common JSON Example：
+Repository 內已有 SWE Common JSON Example，位於 validator module：
 
 ```text
-src/main/resources/
+swecommon30-validator/src/main/resources/
 └── org/opengis/cite/swecommon30/
     └── jsonschema/
         └── sweCommon/
@@ -542,16 +575,16 @@ geometry3.json
 
 ## 8. 測試資料
 
-開發階段使用的測試 JSON 可放在：
+開發階段由 ETS 使用的測試 JSON 可放在：
 
 ```text
-src/test/resources/jsondata/
+swecommon30-ets/src/test/resources/jsondata/
 ```
 
 目前已有：
 
 ```text
-src/test/resources/jsondata/
+swecommon30-ets/src/test/resources/jsondata/
 ├── valid/
 └── invalid/
 ```
@@ -561,7 +594,7 @@ src/test/resources/jsondata/
 例如：
 
 ```text
-src/test/resources/jsondata/
+swecommon30-ets/src/test/resources/jsondata/
 └── a54/
     ├── valid/
     │   └── valid-simple-component.json
@@ -608,12 +641,12 @@ Requirement：值必須符合 enum
 
 ## 9. 本機測試方式
 
-Test Suite 透過 `iut` 參數取得測試對象。
+Test Suite 透過 `iut` 參數取得測試對象。這是 `swecommon30-ets` 的執行設定，不屬於 validator module。
 
 可以修改：
 
 ```text
-src/main/config/test-run-props.xml
+swecommon30-ets/src/main/config/test-run-props.xml
 ```
 
 將 `iut` 指向本機 JSON 測試檔案。
@@ -621,10 +654,10 @@ src/main/config/test-run-props.xml
 例如 Windows：
 
 ```xml
-<entry key="iut">file:///C:/workspace/ets-swecommon30/src/test/resources/jsondata/a54/valid/valid-simple-component.json</entry>
+<entry key="iut">file:///C:/workspace/ets-swecommon30/swecommon30-ets/src/test/resources/jsondata/a54/valid/valid-simple-component.json</entry>
 ```
 
-執行入口：
+執行入口位於 ETS module：
 
 ```text
 org.opengis.cite.swecommon30.TestNGController
@@ -694,7 +727,7 @@ Abstract Test A.2
 位置：
 
 ```text
-src/main/java/org/opengis/cite/swecommon30/jsonschema/CoreScalarComponentsTest.java
+swecommon30-ets/src/main/java/org/opengis/cite/swecommon30/jsonschema/CoreScalarComponentsTest.java
 ```
 
 對應 Method：
@@ -705,7 +738,11 @@ src/main/java/org/opengis/cite/swecommon30/jsonschema/CoreScalarComponentsTest.j
  */
 @Test(description = "Implements Abstract Test A.2 (/conf/core/boolean-rep-valid)")
 public void Boolean() {
-    assertScalarComponentConforms("Boolean", "Boolean.json");
+    assertScalarComponentConforms(
+            "A.2",
+            "/conf/core/boolean-rep-valid",
+            "Boolean",
+            "Boolean.json");
 }
 ```
 
@@ -721,20 +758,30 @@ Boolean()
 
 ### 10.4 共用驗證邏輯
 
-`Boolean()` 呼叫：
+`Boolean()` 呼叫 ETS 內的共用測試方法：
 
 ```java
-assertScalarComponentConforms("Boolean", "Boolean.json");
+assertScalarComponentConforms(
+        "A.2",
+        "/conf/core/boolean-rep-valid",
+        "Boolean",
+        "Boolean.json");
 ```
 
-其中：
+四個參數分別是：
 
 ```text
+A.2
+→ Abstract Test 編號
+
+/conf/core/boolean-rep-valid
+→ Conformance Test URI path
+
 Boolean
 → 預期的 Component Type
 
 Boolean.json
-→ 要載入的 JSON Schema
+→ 傳給 validator 的 Schema 檔名
 ```
 
 主要流程：
@@ -742,34 +789,36 @@ Boolean.json
 ```text
 輸入 JSON
         ↓
-讀取 testSubject
+swecommon30-ets 讀取 testSubject
         ↓
 確認 type = Boolean
         ↓
-載入 Boolean.json
+ETS 呼叫 validator.validate(testSubject, "Boolean.json")
         ↓
-建立 JsonSchema
+validator 載入 validator JAR 內的 Boolean.json
         ↓
-schema.validate(testSubject)
+validator 回傳 ValidationMessage
         ↓
-Validation Error?
-        ↓
-PASS / FAIL
+ETS 將結果轉換為 PASS / FAIL；不適用的 Component 則為 SKIP
 ```
 
-主要驗證程式：
+共用 validator API 的使用方式：
 
 ```java
-JsonSchema schema = loadSchema(schemaName);
-
+JsonNode testSubject = validator.readJson(testSubjectFile);
 Set<ValidationMessage> errors =
-        schema.validate(testSubject);
+        validator.validate(testSubject, "Boolean.json");
 
 Assert.assertTrue(
         errors.isEmpty(),
-        formatValidationErrors(expectedType, errors)
+        dataValidationError(
+                "A.2",
+                "/conf/core/boolean-rep-valid",
+                validator.formatValidationErrors("Boolean", errors))
 );
 ```
+
+`CoreScalarComponentsTest` 負責 Abstract Test 的上下文與結果語意；`SweCommonJsonSchemaValidator` 負責可重用的 JSON 讀取、Schema 載入、Schema validation 與錯誤格式化。
 
 ### 10.5 JSON Schema
 
@@ -782,7 +831,7 @@ Boolean.json
 位置：
 
 ```text
-src/main/resources/
+swecommon30-validator/src/main/resources/
 └── org/opengis/cite/swecommon30/
     └── jsonschema/
         └── sweCommon/
@@ -804,6 +853,7 @@ Abstract Test A.2
 
         ↓
 
+swecommon30-ets/
 CoreScalarComponentsTest.java
 
         ↓
@@ -813,9 +863,16 @@ public void Boolean()
         ↓
 
 assertScalarComponentConforms(
+    "A.2",
+    "/conf/core/boolean-rep-valid",
     "Boolean",
     "Boolean.json"
 )
+
+        ↓
+
+swecommon30-validator/
+SweCommonJsonSchemaValidator
 
         ↓
 
@@ -823,15 +880,15 @@ Boolean.json
 
         ↓
 
-JsonSchema.validate()
+validator.validate(testSubject, "Boolean.json")
 
         ↓
 
-PASS / FAIL
+ETS PASS / FAIL / SKIP
 ```
 
 此範例可作為後續 JSON Schema Validation 類型 Abstract Test 的參考。
 
-A.2 屬於「Schema 已能完成主要驗證」的情況，因此 Java 的主要工作是載入 `Boolean.json` 並執行 `schema.validate(...)`，不需要再以 Java 重複撰寫相同的 Schema 規則。
+A.2 屬於「Schema 已能完成主要驗證」的情況，因此 `swecommon30-ets` 的主要工作是傳遞 Abstract Test 上下文與 `Boolean.json` 檔名，並由 `swecommon30-validator` 執行 `validate(...)`；不需要在 ETS 或 validator 以外再重複撰寫相同的 Schema 規則。
 
-新的 Test 仍應以自己的 Requirement、Test Purpose 與 Test Method 為準；若 Schema 無法完整涵蓋該 Abstract Test，再由 Java 補充必要的驗證邏輯。
+新的 Test 仍應以自己的 Requirement、Test Purpose 與 Test Method 為準；若 Schema 無法完整涵蓋該 Abstract Test，再由對應的 ETS Abstract Test 補充必要的驗證邏輯。可重用的補充 validation 能力若會被多個 ETS 使用，才考慮放入 validator module。

@@ -353,6 +353,14 @@ Valid / Invalid Test
         ↓
 Commit and push Issue Branch
         ↓
+Merge latest dev into Issue Branch
+        ↓
+Resolve conflicts if any
+        ↓
+Run full test suite
+        ↓
+確認所有測試通過
+        ↓
 建立 Pull Request to dev
         ↓
 Assign Libby or Luke for review

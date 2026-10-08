@@ -1,0 +1,28 @@
+{
+  "type": "PhysicalSystem",
+  "uniqueId": "urn:example:sensors:weather-station-004",
+  "label": "Example Streaming Weather Station",
+  "definition": "http://www.w3.org/ns/sosa/ObservingProcedure",
+  "outputs": [
+    {
+      "name": "weather",
+      "type": "DataStream",
+      "label": "Weather Data Stream",
+      "elementType": {
+        "name": "sample",
+        "type": "DataRecord",
+        "label": "Weather Sample",
+        "fields": [
+          { "name": "temperature", "type": "Quantity", "definition": "http://mmisw.org/ont/cf/parameter/air_temperature", "label": "Air Temperature", "uom": { "code": "Cel" } },
+          { "name": "pressure", "type": "Quantity", "definition": "http://mmisw.org/ont/cf/parameter/air_pressure_at_mean_sea_level", "label": "Air Pressure", "uom": { "code": "mbar" } }
+        ]
+      },
+      "encoding": {
+        "type": "TextEncoding",
+        "tokenSeparator": ",",
+        "blockSeparator": "\n",
+        "decimalSeparator": "."
+      }
+    }
+  ]
+}

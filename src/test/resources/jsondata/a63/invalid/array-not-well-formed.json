@@ -1,0 +1,9 @@
+{
+  "type": "DataArray",
+  "label": "Calibration Table",
+  "elementType": {
+    "name": "point",
+    "type": "Quantity",
+    "definition": "https://qudt.org/vocab/quantitykind/Resistance",
+    "label": "Resistance",
+    "uom": { "code": "KOhm" }

@@ -1,0 +1,32 @@
+{
+  "type": "DataStream",
+  "label": "Aircraft Navigation",
+  "elementType": {
+    "name": "navData",
+    "type": "DataRecord",
+    "fields": [
+      {
+        "name": "time",
+        "type": "Time",
+        "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+        "referenceFrame": "http://www.opengis.net/def/trs/USNO/0/GPS",
+        "label": "Sampling Time",
+        "uom": { "code": "s" }
+      },
+      {
+        "name": "altitude",
+        "type": "Quantity",
+        "definition": "http://sensorml.com/ont/swe/property/HeightAboveEllipsoid",
+        "label": "Altitude",
+        "uom": { "code": "m" }
+      }
+    ]
+  },
+  "encoding": {
+    "type": "TextEncoding",
+    "tokenSeparator": ",",
+    "blockSeparator": "\n",
+    "decimalSeparator": "."
+  },
+  "values": { "href": "https://example.org/data/nav-stream.csv" }
+}

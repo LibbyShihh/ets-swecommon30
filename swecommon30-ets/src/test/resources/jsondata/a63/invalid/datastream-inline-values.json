@@ -1,0 +1,18 @@
+{
+  "type": "DataStream",
+  "label": "Aircraft Navigation",
+  "elementType": {
+    "name": "navData",
+    "type": "Quantity",
+    "definition": "http://sensorml.com/ont/swe/property/HeightAboveEllipsoid",
+    "label": "Altitude",
+    "uom": { "code": "m" }
+  },
+  "encoding": {
+    "type": "TextEncoding",
+    "tokenSeparator": ",",
+    "blockSeparator": "\n",
+    "decimalSeparator": "."
+  },
+  "values": [1215.3, 1216.8, 1220.1]
+}

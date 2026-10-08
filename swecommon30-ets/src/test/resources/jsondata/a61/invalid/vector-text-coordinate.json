@@ -1,0 +1,9 @@
+{
+  "type": "Vector",
+  "definition": "http://www.opengis.net/def/property/OGC/0/PlatformLocation",
+  "referenceFrame": "http://www.opengis.net/def/crs/EPSG/0/4326",
+  "label": "Platform Location",
+  "coordinates": [
+    { "name": "lat", "type": "Text", "definition": "http://sensorml.com/ont/swe/property/GeodeticLatitude", "label": "Latitude", "axisID": "Lat" }
+  ]
+}

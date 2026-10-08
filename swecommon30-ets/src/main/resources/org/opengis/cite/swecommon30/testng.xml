@@ -23,5 +23,10 @@
       <class name="org.opengis.cite.swecommon30.jsonschema.CoreScalarComponentsTest" />
     </classes>
   </test>
+  <test name="A.10 Record Components JSON Schema (/conf/json-record-components)">
+    <classes>
+      <class name="org.opengis.cite.swecommon30.jsonschema.JsonRecordComponentsTest" />
+    </classes>
+  </test>
   <!-- Add test sets for other conformance classes/levels -->
 </suite>

@@ -1,0 +1,11 @@
+{
+  "type": "Vector",
+  "definition": "http://sensorml.com/ont/swe/property/GridLocation",
+  "referenceFrame": "urn:example:frames:image-grid-with-time",
+  "label": "Pixel Location and Time",
+  "coordinates": [
+    { "name": "col", "type": "Count", "definition": "http://sensorml.com/ont/swe/property/GridX", "label": "Column", "axisID": "I" },
+    { "name": "row", "type": "Count", "definition": "http://sensorml.com/ont/swe/property/GridY", "label": "Row", "axisID": "J" },
+    { "name": "time", "type": "Time", "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime", "label": "Sampling Time", "axisID": "T", "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" } }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "DataChoice",
+  "label": "Weather Data Message",
+  "items": {
+    "name": "TEMP",
+    "type": "Quantity",
+    "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
+    "label": "Air Temperature",
+    "uom": { "code": "Cel" }
+  }
+}

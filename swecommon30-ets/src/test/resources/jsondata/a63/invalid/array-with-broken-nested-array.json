@@ -1,0 +1,18 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/RasterImage",
+  "label": "Satellite Image",
+  "elementCount": {
+    "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfRows",
+    "value": 3000
+  },
+  "elementType": {
+    "name": "row",
+    "type": "DataArray",
+    "definition": "http://sensorml.com/ont/swe/property/RasterImage",
+    "elementCount": {
+      "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfSamples",
+      "value": 3000
+    }
+  }
+}

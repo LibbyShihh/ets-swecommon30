@@ -1,0 +1,51 @@
+{
+  "type": "DataStream",
+  "label": "Instrument Telemetry",
+  "elementType": {
+    "name": "state",
+    "type": "DataRecord",
+    "label": "Instrument State",
+    "fields": [
+      {
+        "name": "calibration",
+        "type": "DataArray",
+        "label": "Calibration Table",
+        "elementCount": {
+          "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfPoints",
+          "value": 2
+        },
+        "elementType": {
+          "name": "point",
+          "type": "Quantity",
+          "definition": "https://qudt.org/vocab/quantitykind/Resistance",
+          "label": "Resistance",
+          "uom": { "code": "KOhm" }
+        }
+      },
+      {
+        "name": "orientation",
+        "type": "Matrix",
+        "definition": "http://sensorml.com/ont/swe/property/RotationMatrix",
+        "referenceFrame": "http://www.opengis.net/def/crs/OGC/0/ECI_J2000",
+        "label": "3D Orientation Matrix",
+        "elementType": {
+          "name": "row",
+          "type": "Matrix",
+          "elementType": {
+            "name": "coef",
+            "type": "Quantity",
+            "definition": "http://sensorml.com/ont/swe/property/Coordinate",
+            "label": "Matrix Coef",
+            "uom": { "code": "1" }
+          }
+        }
+      }
+    ]
+  },
+  "encoding": {
+    "type": "TextEncoding",
+    "tokenSeparator": ",",
+    "blockSeparator": "\n",
+    "decimalSeparator": "."
+  }
+}

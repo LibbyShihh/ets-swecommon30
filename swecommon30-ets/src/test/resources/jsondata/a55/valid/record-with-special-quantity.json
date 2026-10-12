@@ -1,0 +1,8 @@
+{
+  "type": "DataRecord",
+  "label": "Weather Data Record",
+  "fields": [
+    { "name": "temperature", "type": "Quantity", "definition": "http://mmisw.org/ont/cf/parameter/air_temperature", "label": "Air Temperature", "uom": { "code": "Cel" }, "value": 21.5 },
+    { "name": "pressure", "type": "Quantity", "definition": "http://mmisw.org/ont/cf/parameter/air_pressure_at_mean_sea_level", "label": "Air Pressure", "uom": { "code": "mbar" }, "value": "-Infinity" }
+  ]
+}

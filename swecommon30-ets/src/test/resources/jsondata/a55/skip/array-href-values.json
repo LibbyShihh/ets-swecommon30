@@ -1,0 +1,12 @@
+{
+  "type": "DataArray",
+  "label": "Calibration Table",
+  "elementType": {
+    "name": "t",
+    "type": "Quantity",
+    "definition": "https://qudt.org/vocab/quantitykind/Temperature",
+    "label": "Temperature",
+    "uom": { "code": "Cel" }
+  },
+  "values": { "href": "https://example.org/data/calibration.json" }
+}

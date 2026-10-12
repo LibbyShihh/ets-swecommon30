@@ -1,0 +1,6 @@
+{
+  "type": "Text",
+  "definition": "http://sensorml.com/ont/swe/property/StatusMessage",
+  "label": "Status Message",
+  "value": "NaN"
+}

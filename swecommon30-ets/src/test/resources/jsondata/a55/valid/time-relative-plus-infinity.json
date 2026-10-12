@@ -1,0 +1,8 @@
+{
+  "type": "Time",
+  "definition": "http://www.opengis.net/def/property/OGC/0/ElapsedTime",
+  "label": "Time Since Launch",
+  "referenceTime": "2009-11-05T16:29:26Z",
+  "uom": { "code": "s" },
+  "value": "+Infinity"
+}

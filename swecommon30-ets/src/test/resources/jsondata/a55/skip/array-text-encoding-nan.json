@@ -1,0 +1,13 @@
+{
+  "type": "DataArray",
+  "label": "Calibration Table",
+  "elementType": {
+    "name": "t",
+    "type": "Quantity",
+    "definition": "https://qudt.org/vocab/quantitykind/Temperature",
+    "label": "Temperature",
+    "uom": { "code": "Cel" }
+  },
+  "encoding": { "type": "TextEncoding", "tokenSeparator": ",", "blockSeparator": "\n" },
+  "values": ["12", "NaN"]
+}

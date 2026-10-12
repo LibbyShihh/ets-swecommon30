@@ -1,0 +1,16 @@
+{
+  "type": "PhysicalSystem",
+  "uniqueId": "urn:example:sensors:weather-station-002",
+  "label": "Example Weather Station",
+  "definition": "http://www.w3.org/ns/sosa/ObservingProcedure",
+  "outputs": [
+    {
+      "name": "temperature",
+      "type": "Quantity",
+      "definition": "http://sensorml.com/ont/swe/property/Temperature",
+      "label": "Air Temperature",
+      "uom": { "code": "Cel" },
+      "value": "NaN"
+    }
+  ]
+}

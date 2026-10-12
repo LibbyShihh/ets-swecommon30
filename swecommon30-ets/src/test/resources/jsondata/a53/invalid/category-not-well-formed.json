@@ -1,0 +1,5 @@
+{
+  "type": "Category",
+  "definition": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#GeologicTime",
+  "label": "Geological Period",
+  "value": "Jurassic"

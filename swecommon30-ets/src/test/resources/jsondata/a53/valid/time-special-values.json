@@ -1,0 +1,8 @@
+{
+  "type": "DataRecord",
+  "label": "Validity Period",
+  "fields": [
+    { "name": "end", "type": "Time", "definition": "http://www.opengis.net/def/property/OGC/0/ValidTime", "label": "End of Validity", "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }, "value": "+Infinity" },
+    { "name": "validity", "type": "TimeRange", "definition": "http://www.opengis.net/def/property/OGC/0/ValidTime", "label": "Validity", "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }, "value": ["2008-01-05T11:02:54Z", "+Infinity"] }
+  ]
+}

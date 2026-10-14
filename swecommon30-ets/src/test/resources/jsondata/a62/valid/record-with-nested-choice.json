@@ -1,0 +1,15 @@
+{
+  "type": "DataRecord",
+  "label": "Weather Station Output",
+  "fields": [
+    {
+      "name": "message",
+      "type": "DataChoice",
+      "label": "Weather Data Message",
+      "items": [
+        { "name": "TEMP", "type": "Quantity", "definition": "http://mmisw.org/ont/cf/parameter/air_temperature", "label": "Air Temperature", "uom": { "code": "Cel" } },
+        { "name": "PRESS", "type": "Quantity", "definition": "http://mmisw.org/ont/cf/parameter/air_pressure_at_mean_sea_level", "label": "Air Pressure", "uom": { "code": "hPa" } }
+      ]
+    }
+  ]
+}

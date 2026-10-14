@@ -1,0 +1,7 @@
+{
+  "type": "DataChoice",
+  "label": "Location or Temperature",
+  "items": [
+    { "name": "LOC", "type": "Geometry", "definition": "http://www.opengis.net/def/property/OGC/0/SamplingLocation", "label": "Location", "srs": "http://www.opengis.net/def/crs/EPSG/0/4979", "constraint": { "geomTypes": ["Point"] }, "value": { "type": "Point", "coordinates": [41.2, -73.6, 12.0] } }
+  ]
+}

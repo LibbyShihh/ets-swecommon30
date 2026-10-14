@@ -27,6 +27,7 @@
     <classes>
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonSimpleComponentsTest" />
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonSimpleComponentTypesTest" />
+      <class name="org.opengis.cite.swecommon30.jsonschema.JsonSpecialNumericalValuesTest" />
     </classes>
   </test>
   <test name="A.10 Record Components JSON Schema (/conf/json-record-components)">

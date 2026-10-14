@@ -1,0 +1,18 @@
+{
+  "type": "DataArray",
+  "label": "Calibration Table",
+  "elementType": {
+    "name": "point",
+    "type": "DataRecord",
+    "label": "Data Point",
+    "fields": [
+      { "name": "t", "type": "Quantity", "definition": "https://qudt.org/vocab/quantitykind/Temperature", "label": "Temperature", "uom": { "code": "Cel" } },
+      { "name": "r", "type": "Quantity", "definition": "https://qudt.org/vocab/quantitykind/Resistance", "label": "Resistance", "uom": { "code": "KOhm" } }
+    ]
+  },
+  "encoding": { "type": "JSONEncoding", "recordsAsArrays": true },
+  "values": [
+    [12, 3.03],
+    ["-Infinity", 1.68]
+  ]
+}

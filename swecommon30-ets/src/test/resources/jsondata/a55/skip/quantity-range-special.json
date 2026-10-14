@@ -1,0 +1,7 @@
+{
+  "type": "QuantityRange",
+  "definition": "http://mmisw.org/ont/mmi/device/OperationalRange",
+  "label": "Operational Range",
+  "uom": { "code": "K" },
+  "value": [10, "+Infinity"]
+}

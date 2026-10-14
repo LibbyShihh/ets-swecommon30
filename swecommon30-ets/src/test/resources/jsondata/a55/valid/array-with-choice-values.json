@@ -1,0 +1,17 @@
+{
+  "type": "DataArray",
+  "label": "Mixed Readings",
+  "elementType": {
+    "name": "reading",
+    "type": "DataChoice",
+    "label": "Reading",
+    "items": [
+      { "name": "temp", "type": "Quantity", "definition": "http://qudt.org/vocab/quantitykind/Temperature", "label": "Temperature", "uom": { "code": "Cel" } },
+      { "name": "status", "type": "Text", "definition": "http://sensorml.com/ont/swe/property/StatusMessage", "label": "Status" }
+    ]
+  },
+  "values": [
+    { "status": "OK" },
+    { "temp": "NaN" }
+  ]
+}

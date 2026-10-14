@@ -1,0 +1,17 @@
+{
+  "type": "DataArray",
+  "label": "Status Log",
+  "elementType": {
+    "name": "entry",
+    "type": "DataRecord",
+    "label": "Log Entry",
+    "fields": [
+      { "name": "status", "type": "Text", "definition": "http://sensorml.com/ont/swe/property/StatusMessage", "label": "Status" },
+      { "name": "temp", "type": "Quantity", "definition": "http://qudt.org/vocab/quantitykind/Temperature", "label": "Temperature", "uom": { "code": "Cel" } }
+    ]
+  },
+  "values": [
+    ["NaN", 21.5],
+    {"status": "NaN", "temp": 22.0}
+  ]
+}

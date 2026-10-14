@@ -1,0 +1,6 @@
+{
+  "type": "Geometry",
+  "definition": "http://sensorml.com/ont/swe/property/TargetLocation",
+  "label": "Target Location",
+  "value": { "type": "Point", "coordinates": [12.34, 56.36] }
+}

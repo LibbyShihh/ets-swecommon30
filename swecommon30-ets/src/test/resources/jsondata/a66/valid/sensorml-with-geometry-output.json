@@ -1,0 +1,16 @@
+{
+  "type": "PhysicalSystem",
+  "uniqueId": "urn:example:sensors:uxs-001",
+  "label": "Example UxS",
+  "definition": "http://www.w3.org/ns/sosa/ObservingProcedure",
+  "outputs": [
+    {
+      "name": "trajectory",
+      "type": "Geometry",
+      "definition": "http://sensorml.com/ont/swe/property/Trajectory",
+      "srs": "http://www.opengis.net/def/crs/EPSG/0/4326",
+      "label": "Desired Trajectory",
+      "value": { "type": "LineString", "coordinates": [[12.34, 56.36], [12.45, 56.37], [12.45, 56.39]] }
+    }
+  ]
+}

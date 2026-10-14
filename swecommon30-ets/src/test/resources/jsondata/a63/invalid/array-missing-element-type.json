@@ -1,0 +1,8 @@
+{
+  "type": "DataArray",
+  "label": "Calibration Table",
+  "elementCount": {
+    "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfPoints",
+    "value": 5
+  }
+}

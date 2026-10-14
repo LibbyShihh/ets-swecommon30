@@ -1,0 +1,8 @@
+{
+  "type": "DataRecord",
+  "label": "Weather Data Record",
+  "fields": [
+    { "name": "time", "type": "Time", "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime", "label": "Sampling Time", "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" } },
+    { "name": "temperature", "type": "Quantity", "definition": "http://mmisw.org/ont/cf/parameter/air_temperature", "label": "Air Temperature" }
+  ]
+}

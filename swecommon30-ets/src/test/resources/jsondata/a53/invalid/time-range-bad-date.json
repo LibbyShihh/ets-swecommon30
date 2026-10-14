@@ -1,0 +1,7 @@
+{
+  "type": "TimeRange",
+  "definition": "http://www.opengis.net/def/property/EO/0/SurveyPeriod",
+  "label": "Survey Period",
+  "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" },
+  "value": ["2008-13-05T11:02:54Z", "2009-11-05T16:29:26Z"]
+}

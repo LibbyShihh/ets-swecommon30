@@ -1,0 +1,6 @@
+{
+  "type": "Boolean",
+  "definition": "http://sweet.jpl.nasa.gov/2.0/physDynamics.owl#Motion",
+  "label": "Motion Detected",
+  "value": 1
+}

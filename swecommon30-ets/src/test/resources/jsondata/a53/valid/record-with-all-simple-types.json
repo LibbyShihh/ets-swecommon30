@@ -1,0 +1,16 @@
+{
+  "type": "DataRecord",
+  "label": "All Simple Component Types",
+  "fields": [
+    { "name": "motion", "type": "Boolean", "definition": "http://sweet.jpl.nasa.gov/2.0/physDynamics.owl#Motion", "label": "Motion Detected", "value": true },
+    { "name": "manufacturer", "type": "Text", "definition": "http://sensorml.com/ont/swe/property/Manufacturer", "label": "Manufacturer", "value": "Ocean Devices, Inc." },
+    { "name": "period", "type": "Category", "definition": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#GeologicTime", "label": "Geological Period", "codeSpace": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#Period", "value": "Jurassic" },
+    { "name": "rowSize", "type": "Count", "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfPixels", "label": "Row Size", "value": 1024 },
+    { "name": "temp", "type": "Quantity", "definition": "http://qudt.org/vocab/quantitykind/Temperature", "label": "Outside Temperature", "uom": { "code": "Cel" }, "value": 21.5 },
+    { "name": "time", "type": "Time", "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime", "label": "Sampling Time", "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }, "value": "2009-11-05T16:29:26Z" },
+    { "name": "dating", "type": "CategoryRange", "definition": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#GeologicTime", "label": "Approximate Dating", "codeSpace": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#Era", "value": ["Paleozoic", "Mesozoic"] },
+    { "name": "indexRange", "type": "CountRange", "definition": "http://www.opengis.net/def/property/OGC/0/ArrayIndex", "label": "Index Range", "value": [0, 3000] },
+    { "name": "opRange", "type": "QuantityRange", "definition": "http://mmisw.org/ont/mmi/device/OperationalRange", "label": "Operational Range", "uom": { "code": "K" }, "value": [10, 300] },
+    { "name": "survey", "type": "TimeRange", "definition": "http://www.opengis.net/def/property/EO/0/SurveyPeriod", "label": "Survey Period", "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }, "value": ["2008-01-05T11:02:54Z", "2009-11-05T16:29:26Z"] }
+  ]
+}

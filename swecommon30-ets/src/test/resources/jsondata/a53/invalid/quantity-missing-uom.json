@@ -1,0 +1,7 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/Temperature",
+  "label": "Outside Temperature",
+  "description": "Outside temperature taken at the top of the antenna",
+  "value": 21.5
+}

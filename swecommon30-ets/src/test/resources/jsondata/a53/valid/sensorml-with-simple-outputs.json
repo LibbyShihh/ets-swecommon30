@@ -1,0 +1,33 @@
+{
+  "type": "PhysicalSystem",
+  "uniqueId": "urn:example:sensors:motion-detector-001",
+  "label": "Example Motion Detector",
+  "definition": "http://www.w3.org/ns/sosa/ObservingProcedure",
+  "outputs": [
+    {
+      "name": "motion",
+      "type": "Boolean",
+      "definition": "http://sweet.jpl.nasa.gov/2.0/physDynamics.owl#Motion",
+      "label": "Motion Detected"
+    },
+    {
+      "name": "eventCount",
+      "type": "Count",
+      "definition": "http://sensorml.com/ont/swe/property/EventCount",
+      "label": "Event Count"
+    },
+    {
+      "name": "time",
+      "type": "Time",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+      "label": "Sampling Time",
+      "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }
+    },
+    {
+      "name": "status",
+      "type": "Text",
+      "definition": "http://sensorml.com/ont/swe/property/StatusMessage",
+      "label": "Status Message"
+    }
+  ]
+}

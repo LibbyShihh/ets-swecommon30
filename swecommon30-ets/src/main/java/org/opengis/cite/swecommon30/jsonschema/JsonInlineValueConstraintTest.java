@@ -106,11 +106,12 @@ public class JsonInlineValueConstraintTest {
             List<JsonNode> instances = JsonUtils.findNodesByType(testSubject, type);
             for (int i = 0; i < instances.size(); i++) {
                 JsonNode instance = instances.get(i);
-                if (hasValueAndConstraint(instance)) {
+                List<String> reasons = new ArrayList<>();
+                if (hasValueAndConstraint(instance) && compare(type, instance, reasons)) {
                     checked++;
-                    String reasons = violations(type, instance);
                     if (!reasons.isEmpty()) {
-                        violations.add(describe(type + " instance", instance, i, instances.size()) + " " + reasons);
+                        violations.add(describe(type + " instance", instance, i, instances.size()) + " "
+                                + String.join("; ", reasons));
                     }
                 }
             }
@@ -119,22 +120,24 @@ public class JsonInlineValueConstraintTest {
             List<JsonNode> arrays = JsonUtils.findNodesByType(testSubject, type);
             for (int i = 0; i < arrays.size(); i++) {
                 JsonNode elementCount = arrays.get(i).path("elementCount");
-                if (hasValueAndConstraint(elementCount)) {
+                List<String> reasons = new ArrayList<>();
+                if (hasValueAndConstraint(elementCount) && compare("Count", elementCount, reasons)) {
                     checked++;
-                    String reasons = violations("Count", elementCount);
                     if (!reasons.isEmpty()) {
                         violations.add(describe("elementCount of " + type + " instance", arrays.get(i), i,
-                                arrays.size()) + " " + reasons);
+                                arrays.size()) + " " + String.join("; ", reasons));
                     }
                 }
             }
         }
 
-        // A.57's "(if any)": a component without both an inline value and a constraint has nothing to check.
+        // A.57's "(if any)": a component without both an inline value and a constraint has nothing to check,
+        // and neither has one whose constraint holds nothing this test can read. Only a real comparison
+        // counts toward a PASS.
         if (checked == 0) {
             throw new SkipException(String.format(
                     "Test skipped [%s %s]: Not applicable; the test subject contains no simple component or "
-                            + "elementCount with both an inline value and a constraint.",
+                            + "elementCount with both an inline value and a constraint it can be compared with.",
                     abstractTest, conformancePath));
         }
 
@@ -148,29 +151,33 @@ public class JsonInlineValueConstraintTest {
     }
 
     /**
-     * Lists why a component's inline value does not satisfy its constraint, or returns an empty string.
-     * Each bound of a range value is checked on its own, like the scalar value.
+     * Compares a component's inline value with its constraint, adding why it does not satisfy it to
+     * reasons. Each bound of a range value is checked on its own, like the scalar value.
+     *
+     * @return whether the constraint held anything the value could be compared with
      */
-    private String violations(String type, JsonNode component) {
+    private boolean compare(String type, JsonNode component, List<String> reasons) {
         JsonNode constraint = component.get("constraint");
         JsonNode value = component.get("value");
         String scalarType = type.replace("Range", "");
-        List<String> reasons = new ArrayList<>();
+        boolean compared = false;
         if (type.endsWith("Range") && value.isArray()) {
             for (int i = 0; i < value.size(); i++) {
-                check(scalarType, constraint, value.get(i), "value[" + i + "]", reasons);
+                compared |= check(scalarType, constraint, value.get(i), "value[" + i + "]", reasons);
             }
         } else {
-            check(scalarType, constraint, value, "value", reasons);
+            compared = check(scalarType, constraint, value, "value", reasons);
         }
-        return String.join("; ", reasons);
+        return compared;
     }
 
-    private void check(String scalarType, JsonNode constraint, JsonNode value, String label, List<String> reasons) {
+    private boolean check(String scalarType, JsonNode constraint, JsonNode value, String label, List<String> reasons) {
         boolean textual = "Text".equals(scalarType) || "Category".equals(scalarType);
-        if (!(textual ? satisfiesTokens(constraint, value) : satisfiesValues(constraint, value))) {
+        Boolean satisfied = textual ? satisfiesTokens(constraint, value) : satisfiesValues(constraint, value);
+        if (Boolean.FALSE.equals(satisfied)) {
             reasons.add(label + " " + value + " does not satisfy constraint " + constraint);
         }
+        boolean compared = satisfied != null;
 
         // Clause 8.2.18: significantFigures is "only applicable ... within the Quantity class" and "limits
         // the total number of digits that can be included in the number represented whether a scientific
@@ -178,20 +185,23 @@ public class JsonInlineValueConstraintTest {
         // precision of the exact decimal.
         JsonNode limit = constraint.get("significantFigures");
         if ("Quantity".equals(scalarType) && limit != null && limit.isIntegralNumber() && value.isNumber()) {
+            compared = true;
             int digits = value.decimalValue().precision();
             if (digits > limit.intValue()) {
                 reasons.add(label + " " + value + " has " + digits + " significant figures, more than the "
                         + limit.intValue() + " allowed");
             }
         }
+        return compared;
     }
 
     /**
      * Clause 8.2.17: "The value must then either be one of the enumerated tokens or match the pattern."
      * A match anywhere in the token is enough, as for a JSON Schema pattern. A pattern that does not
-     * compile is ignored; whether the constraint is well formed is not what A.57 checks.
+     * compile is ignored; whether the constraint is well formed is not what A.57 checks. Returns null
+     * when no token or pattern can be read, as there is then nothing to compare.
      */
-    private boolean satisfiesTokens(JsonNode constraint, JsonNode value) {
+    private Boolean satisfiesTokens(JsonNode constraint, JsonNode value) {
         List<String> tokens = new ArrayList<>();
         for (JsonNode token : constraint.path("values")) {
             if (token.isTextual()) {
@@ -207,7 +217,7 @@ public class JsonInlineValueConstraintTest {
             }
         }
         if (tokens.isEmpty() && pattern == null) {
-            return true;
+            return null;
         }
         if (!value.isTextual()) {
             return false;
@@ -219,9 +229,9 @@ public class JsonInlineValueConstraintTest {
      * Clause 8.2.18: "To be valid, the value must either be one of the enumerated values or included in one
      * of the intervals." Clause 8.2.19 uses AllowedTimes the same way, with time values. An interval that is
      * not a pair of comparable bounds is ignored; whether the constraint is well formed is not what A.57
-     * checks.
+     * checks. Returns null when no value or interval can be read, as there is then nothing to compare.
      */
-    private boolean satisfiesValues(JsonNode constraint, JsonNode value) {
+    private Boolean satisfiesValues(JsonNode constraint, JsonNode value) {
         List<Point> allowed = new ArrayList<>();
         for (JsonNode entry : constraint.path("values")) {
             Point point = Point.of(entry);
@@ -240,7 +250,7 @@ public class JsonInlineValueConstraintTest {
             }
         }
         if (allowed.isEmpty() && intervals.isEmpty()) {
-            return true;
+            return null;
         }
 
         Point point = Point.of(value);

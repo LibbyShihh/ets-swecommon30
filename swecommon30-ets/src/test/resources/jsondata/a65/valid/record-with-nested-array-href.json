@@ -1,0 +1,25 @@
+{
+  "type": "DataRecord",
+  "label": "Calibration Record",
+  "fields": [
+    {
+      "name": "sensorId",
+      "type": "Text",
+      "label": "Sensor ID",
+      "value": "TEMP-01"
+    },
+    {
+      "name": "table",
+      "type": "DataArray",
+      "label": "Calibration Table",
+      "elementType": {
+        "name": "r",
+        "type": "Quantity",
+        "definition": "https://qudt.org/vocab/quantitykind/Resistance",
+        "label": "Resistance",
+        "uom": { "code": "KOhm" }
+      },
+      "values": { "href": "https://example.org/data/calibration.json" }
+    }
+  ]
+}

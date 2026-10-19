@@ -1,0 +1,31 @@
+{
+  "type": "DataRecord",
+  "definition": "http://www.opengis.net/def/property/OGC/0/Observation",
+  "label": "Observation",
+  "fields": [
+    {
+      "name": "start",
+      "type": "Time",
+      "definition": "http://www.opengis.net/def/property/OGC/0/PhenomenonTimeStart",
+      "label": "Start Time",
+      "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" },
+      "value": "2009-11-05T16:00:00Z"
+    },
+    {
+      "name": "end",
+      "type": "Time",
+      "definition": "http://www.opengis.net/def/property/OGC/0/PhenomenonTimeEnd",
+      "label": "End Time",
+      "uom": { "href": "http://www.opengis.net/def/uom/UCUM/0/s" },
+      "value": "2009-11-05T16:29:26Z"
+    },
+    {
+      "name": "temperature",
+      "type": "Quantity",
+      "definition": "http://sensorml.com/ont/swe/property/Temperature",
+      "label": "Air Temperature",
+      "uom": { "code": "Cel" },
+      "value": 21.5
+    }
+  ]
+}

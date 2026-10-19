@@ -1,0 +1,6 @@
+{
+  "type": "Count",
+  "definition": "http://127.0.0.1:8756/defs",
+  "label": "Sample Count",
+  "value": 12
+}

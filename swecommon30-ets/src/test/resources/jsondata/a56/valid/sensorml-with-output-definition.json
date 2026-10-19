@@ -1,0 +1,15 @@
+{
+  "type": "PhysicalSystem",
+  "uniqueId": "urn:example:sensors:weather-station-056",
+  "label": "Example Weather Station",
+  "definition": "http://127.0.0.1:8756/defs/no-such-system.ttl",
+  "outputs": [
+    {
+      "name": "temperature",
+      "type": "Quantity",
+      "definition": "http://127.0.0.1:8756/defs/air-temperature.ttl",
+      "label": "Air Temperature",
+      "uom": { "code": "Cel" }
+    }
+  ]
+}

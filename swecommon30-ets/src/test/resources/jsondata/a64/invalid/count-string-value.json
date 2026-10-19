@@ -1,0 +1,15 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "C",
+  "elementType": {
+    "name": "c",
+    "type": "Count",
+    "definition": "http://sensorml.com/ont/swe/property/C",
+    "label": "C"
+  },
+  "values": [
+    1,
+    "2"
+  ]
+}

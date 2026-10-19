@@ -1,0 +1,7 @@
+{
+  "type": "Quantity",
+  "definition": "https://qudt.org/vocab/quantitykind/CostPerUnitEnergy",
+  "label": "Electricity Cost",
+  "uom": { "href": "https://qudt.org/vocab/unit/EUR-PER-KiloW-HR" },
+  "value": 0.27
+}

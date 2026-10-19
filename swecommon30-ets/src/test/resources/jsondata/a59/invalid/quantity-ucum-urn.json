@@ -1,0 +1,7 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/Length",
+  "label": "Height",
+  "uom": { "href": "urn:ogc:def:uom:UCUM::m" },
+  "value": 12.0
+}

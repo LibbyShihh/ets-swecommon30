@@ -1,0 +1,7 @@
+{
+  "type": "Time",
+  "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+  "label": "Sampling Time",
+  "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" },
+  "value": "2026-10-19T08:00:00Z"
+}

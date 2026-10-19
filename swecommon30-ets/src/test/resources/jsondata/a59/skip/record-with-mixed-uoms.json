@@ -1,0 +1,27 @@
+{
+  "type": "DataRecord",
+  "label": "Weather Observation",
+  "fields": [
+    {
+      "name": "time",
+      "type": "Time",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+      "label": "Sampling Time",
+      "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }
+    },
+    {
+      "name": "temp",
+      "type": "Quantity",
+      "definition": "http://qudt.org/vocab/quantitykind/Temperature",
+      "label": "Air Temperature",
+      "uom": { "code": "Cel" }
+    },
+    {
+      "name": "cost",
+      "type": "QuantityRange",
+      "definition": "https://qudt.org/vocab/quantitykind/CostPerUnitEnergy",
+      "label": "Electricity Cost Range",
+      "uom": { "href": "https://qudt.org/vocab/unit/EUR-PER-KiloW-HR" }
+    }
+  ]
+}

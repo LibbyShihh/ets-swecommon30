@@ -1,0 +1,7 @@
+{
+  "type": "TimeRange",
+  "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+  "label": "Exposure Window",
+  "uom": { "href": "http://www.opengis.net/def/uom/UCUM/0/s" },
+  "value": [0, 30]
+}

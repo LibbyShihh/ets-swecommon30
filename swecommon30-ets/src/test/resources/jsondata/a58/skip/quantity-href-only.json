@@ -1,0 +1,9 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/Temperature",
+  "label": "Air Temperature",
+  "uom": {
+    "href": "http://127.0.0.1:8758/defs/DEG_C.ttl"
+  },
+  "value": 21.5
+}

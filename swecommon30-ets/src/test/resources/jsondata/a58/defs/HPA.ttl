@@ -1,0 +1,7 @@
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://127.0.0.1:8758/defs/HPA.ttl>
+  a qudt:Unit ;
+  rdfs:label "Hectopascal"@en ;
+  qudt:ucumCode "hPa"^^qudt:UCUMcs .

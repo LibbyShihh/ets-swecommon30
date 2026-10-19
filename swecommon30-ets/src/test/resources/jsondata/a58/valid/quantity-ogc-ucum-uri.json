@@ -1,0 +1,10 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/Altitude",
+  "label": "Altitude",
+  "uom": {
+    "code": "m",
+    "href": "http://www.opengis.net/def/uom/UCUM/0/m"
+  },
+  "value": 21.5
+}

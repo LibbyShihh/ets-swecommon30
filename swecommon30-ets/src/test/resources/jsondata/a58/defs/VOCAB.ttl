@@ -1,0 +1,7 @@
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# A vocabulary file: it states UCUM codes, but only for units other than itself.
+<http://127.0.0.1:8758/defs/VOCAB.ttl> rdfs:label "A small unit vocabulary"@en .
+<http://127.0.0.1:8758/defs/VOCAB.ttl#metre> a qudt:Unit ; qudt:ucumCode "m"^^qudt:UCUMcs .
+<http://127.0.0.1:8758/defs/VOCAB.ttl#kilometre> a qudt:Unit ; qudt:ucumCode "km"^^qudt:UCUMcs .

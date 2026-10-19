@@ -1,0 +1,10 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/Temperature",
+  "label": "Air Temperature",
+  "uom": {
+    "code": "Cel",
+    "href": "https://qudt.org/vocab/unit/DEG_C"
+  },
+  "value": 21.5
+}

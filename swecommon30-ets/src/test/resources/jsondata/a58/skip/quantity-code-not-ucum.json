@@ -1,0 +1,10 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/AtmosphericPressure",
+  "label": "Air Pressure",
+  "uom": {
+    "code": "HPa",
+    "href": "http://127.0.0.1:8758/defs/HPA.ttl"
+  },
+  "value": 21.5
+}

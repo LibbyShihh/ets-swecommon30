@@ -1,0 +1,7 @@
+{
+  "type": "Text",
+  "definition": "http://sensorml.com/ont/swe/property/ModelNumber",
+  "label": "Model Number",
+  "constraint": { "pattern": "AB" },
+  "value": "XAB12"
+}

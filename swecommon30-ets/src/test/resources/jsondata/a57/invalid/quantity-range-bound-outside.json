@@ -1,0 +1,8 @@
+{
+  "type": "QuantityRange",
+  "definition": "http://www.opengis.net/def/property/OGC-EO/0/GroundResolution",
+  "label": "Ground Resolution",
+  "uom": { "code": "m" },
+  "constraint": { "intervals": [[0, 10]] },
+  "value": [5, 11]
+}

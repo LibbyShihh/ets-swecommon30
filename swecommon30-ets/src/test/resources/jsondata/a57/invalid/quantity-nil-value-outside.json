@@ -1,0 +1,11 @@
+{
+  "type": "Quantity",
+  "definition": "http://sensorml.com/ont/swe/property/RelativeHumidity",
+  "label": "Relative Humidity",
+  "uom": { "code": "%" },
+  "constraint": { "intervals": [[0, 100]] },
+  "nilValues": [
+    { "reason": "http://www.opengis.net/def/nil/OGC/0/missing", "value": -9999 }
+  ],
+  "value": -9999
+}

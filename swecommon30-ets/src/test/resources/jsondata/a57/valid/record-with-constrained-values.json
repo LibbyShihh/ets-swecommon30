@@ -1,0 +1,58 @@
+{
+  "type": "DataRecord",
+  "definition": "http://sensorml.com/ont/swe/property/SensorStatusRecord",
+  "label": "Sensor Status Record",
+  "fields": [
+    {
+      "name": "model",
+      "type": "Text",
+      "definition": "http://sensorml.com/ont/swe/property/ModelNumber",
+      "label": "Model Number",
+      "constraint": { "pattern": "^[0-9][A-Z]{3}[0-9]{2}S1$" },
+      "value": "1ABC23S1"
+    },
+    {
+      "name": "status",
+      "type": "Category",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SensorStatus",
+      "label": "Sensor Status",
+      "constraint": { "values": ["Off", "Stand-by", "Ready", "Busy"] },
+      "value": "Ready"
+    },
+    {
+      "name": "width",
+      "type": "Count",
+      "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfPixels",
+      "label": "Image Width",
+      "constraint": { "values": [256, 512, 1024] },
+      "value": 512
+    },
+    {
+      "name": "concentration",
+      "type": "Quantity",
+      "definition": "http://sensorml.com/ont/swe/property/MassConcentration",
+      "label": "Concentration",
+      "uom": { "code": "g/L" },
+      "constraint": { "intervals": [[0, 1]], "significantFigures": 2 },
+      "value": 0.00052
+    },
+    {
+      "name": "acquisitionTime",
+      "type": "Time",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+      "label": "Acquisition Time",
+      "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" },
+      "constraint": { "intervals": [["2009-01-01T00:00:00Z", "+Infinity"]] },
+      "value": "2024-06-01T12:00:00Z"
+    },
+    {
+      "name": "pulseTime",
+      "type": "Time",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+      "label": "Lidar Pulse Time",
+      "uom": { "code": "ms" },
+      "constraint": { "intervals": [[0, 1e6]] },
+      "value": 2500.5
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "type": "QuantityRange",
+  "definition": "http://www.opengis.net/def/property/OGC-EO/0/AzimuthAngle",
+  "label": "Azimuth Angle",
+  "uom": { "code": "deg" },
+  "constraint": { "intervals": [[0, 10], [12, 20]] },
+  "value": [5, 15]
+}

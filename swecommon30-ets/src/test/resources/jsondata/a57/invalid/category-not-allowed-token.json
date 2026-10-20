@@ -1,0 +1,7 @@
+{
+  "type": "Category",
+  "definition": "http://www.opengis.net/def/property/OGC/0/SensorStatus",
+  "label": "Sensor Status",
+  "constraint": { "values": ["Off", "Stand-by", "Ready", "Busy"] },
+  "value": "Idle"
+}

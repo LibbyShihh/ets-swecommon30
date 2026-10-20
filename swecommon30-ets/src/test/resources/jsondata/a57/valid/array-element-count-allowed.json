@@ -1,0 +1,18 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/TemperatureProfile",
+  "label": "Temperature Profile",
+  "elementCount": {
+    "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfSamples",
+    "label": "Number of Samples",
+    "constraint": { "values": [3, 5] },
+    "value": 3
+  },
+  "elementType": {
+    "name": "temperature",
+    "type": "Quantity",
+    "definition": "http://sensorml.com/ont/swe/property/Temperature",
+    "label": "Temperature",
+    "uom": { "code": "Cel" }
+  }
+}

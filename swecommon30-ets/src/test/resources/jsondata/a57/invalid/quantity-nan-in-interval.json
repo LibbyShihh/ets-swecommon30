@@ -1,0 +1,8 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/Temperature",
+  "label": "Outside Temperature",
+  "uom": { "code": "Cel" },
+  "constraint": { "intervals": [[-50, 60]] },
+  "value": "NaN"
+}

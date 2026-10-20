@@ -1,0 +1,33 @@
+{
+  "type": "DataRecord",
+  "definition": "http://sensorml.com/ont/swe/property/AcquisitionSettings",
+  "label": "Acquisition Settings",
+  "fields": [
+    {
+      "name": "samplingRate",
+      "type": "Quantity",
+      "definition": "http://sensorml.com/ont/swe/property/SamplingRate",
+      "label": "Sampling Rate",
+      "uom": { "code": "Hz" },
+      "constraint": { "intervals": [[0.01, 10.0]] },
+      "value": 5.0
+    },
+    {
+      "name": "gain",
+      "type": "Quantity",
+      "definition": "http://sensorml.com/ont/swe/property/Gain",
+      "label": "Gain",
+      "uom": { "code": "1" },
+      "constraint": { "intervals": [[1.0, 2.5]] },
+      "value": 3.0
+    },
+    {
+      "name": "mode",
+      "type": "Category",
+      "definition": "http://www.opengis.net/def/property/OGC-EO/0/InstrumentMode",
+      "label": "Instrument Mode",
+      "constraint": { "values": ["PANCHROMATIC", "MULTISPECTRAL"] },
+      "value": "HYPERSPECTRAL"
+    }
+  ]
+}

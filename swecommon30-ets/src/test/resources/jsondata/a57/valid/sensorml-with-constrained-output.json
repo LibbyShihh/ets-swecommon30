@@ -1,0 +1,17 @@
+{
+  "type": "PhysicalSystem",
+  "uniqueId": "urn:example:sensors:weather-station-057",
+  "label": "Example Weather Station",
+  "definition": "http://www.w3.org/ns/sosa/ObservingProcedure",
+  "outputs": [
+    {
+      "name": "samplingRate",
+      "type": "Quantity",
+      "definition": "http://sensorml.com/ont/swe/property/SamplingRate",
+      "label": "Sampling Rate",
+      "uom": { "code": "Hz" },
+      "constraint": { "intervals": [[0.01, 10.0]] },
+      "value": 1.0
+    }
+  ]
+}

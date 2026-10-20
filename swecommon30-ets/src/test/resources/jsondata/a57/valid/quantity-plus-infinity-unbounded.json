@@ -1,0 +1,8 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/RadialDistance",
+  "label": "Radial Distance",
+  "uom": { "code": "m" },
+  "constraint": { "intervals": [[0, "+Infinity"]] },
+  "value": "+Infinity"
+}

@@ -121,7 +121,8 @@ public class JsonDefinitionResolvableTest {
 
         // The test method allows "an HTTP URL that resolves to a document (response code 200)" or "a URN
         // that can be resolved ... using a URN resolver provided separately". No URN resolver is
-        // provided to this suite, so a URN can be neither confirmed nor refuted and is left out.
+        // configured, so a URN is left unchecked and a document with one cannot PASS. This is
+        // provisional until OGC says how A.56 is judged without a resolver (issue #20).
         List<String> urns = new ArrayList<>();
         List<String> failures = new ArrayList<>();
         for (Map.Entry<JsonNode, List<String>> entry : usersByDefinition.entrySet()) {
@@ -135,23 +136,24 @@ public class JsonDefinitionResolvableTest {
             } else if (scheme.equals("http") || scheme.equals("https")) {
                 problem = resolve(uri, abstractTest, conformancePath);
             } else {
-                problem = "neither an HTTP URL nor a URN";
+                String shown = definition.isTextual() ? definition.asText() : definition.toString();
+                problem = shown + ": neither an HTTP URL nor a URN";
             }
             if (problem != null) {
-                String shown = definition.isTextual() ? definition.asText() : definition.toString();
-                failures.add(shown + ": " + problem + " (used by " + String.join(", ", entry.getValue()) + ")");
+                failures.add(problem + " (used by " + String.join(", ", entry.getValue()) + ")");
             }
-        }
-        if (urns.size() == usersByDefinition.size()) {
-            throw new SkipException(String.format(
-                    "Test skipped [%s %s]: Not applicable; every definition in the test subject is a URN, and no "
-                            + "URN resolver is provided: %s",
-                    abstractTest, conformancePath, String.join(", ", urns)));
         }
 
         Assert.assertTrue(failures.isEmpty(), dataValidationError(abstractTest, conformancePath,
-                "The test subject has definitions that are neither an HTTP URL resolving with response code 200 "
-                        + "nor a URN:" + System.lineSeparator() + String.join(System.lineSeparator(), failures)));
+                "The following definitions could not be confirmed as an HTTP URL resolving with response code 200 "
+                        + "or a URN:" + System.lineSeparator() + String.join(System.lineSeparator(), failures)));
+
+        if (!urns.isEmpty()) {
+            throw new SkipException(String.format(
+                    "Test skipped [%s %s]: A.56 verification is incomplete because no URN resolver is configured. "
+                            + "Unchecked URNs: %s",
+                    abstractTest, conformancePath, String.join(", ", urns)));
+        }
     }
 
     private URI parseUri(JsonNode definition) {
@@ -168,7 +170,8 @@ public class JsonDefinitionResolvableTest {
     /**
      * Requests an HTTP definition, following redirects. Returns null when the final response is 200,
      * otherwise what went wrong. The content is not judged: the test method's criterion is the response
-     * code, and any format is allowed ("RDF, GML, HTML, etc.").
+     * code, and any format is allowed ("RDF, GML, HTML, etc."). No response at all is worded as this
+     * run failing to retrieve the document, since the cause may be the tester's connection.
      */
     private String resolve(URI uri, String abstractTest, String conformancePath) {
         try {
@@ -182,9 +185,9 @@ public class JsonDefinitionResolvableTest {
                 return null;
             }
             String redirected = response.uri().equals(uri) ? "" : " after redirect to " + response.uri();
-            return "HTTP " + response.statusCode() + redirected;
+            return uri + ": HTTP " + response.statusCode() + redirected;
         } catch (IOException | IllegalArgumentException e) {
-            return "no HTTP response: " + e;
+            return "Unable to retrieve definition from " + uri + ": " + detailMessage(e);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new IllegalStateException(executionError(abstractTest, conformancePath,

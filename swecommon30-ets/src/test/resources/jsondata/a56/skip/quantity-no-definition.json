@@ -1,0 +1,6 @@
+{
+  "type": "Quantity",
+  "label": "Air Temperature",
+  "uom": { "code": "Cel" },
+  "value": 21.5
+}

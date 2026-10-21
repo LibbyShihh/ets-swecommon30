@@ -1,0 +1,5 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<http://127.0.0.1:8756/defs/air-temperature.ttl> a skos:Concept ;
+    skos:prefLabel "Air temperature"@en ;
+    skos:definition "Temperature of the air near the surface, measured in the shade."@en .

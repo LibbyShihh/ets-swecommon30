@@ -1,0 +1,7 @@
+{
+  "type": "Quantity",
+  "definition": "http://127.0.0.1:8756/defs/air-temperature.ttl",
+  "label": "Air Temperature",
+  "uom": { "code": "Cel" },
+  "value": 21.5
+}

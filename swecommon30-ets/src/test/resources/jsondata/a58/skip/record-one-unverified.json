@@ -1,0 +1,26 @@
+{
+  "type": "DataRecord",
+  "label": "Station Observation",
+  "fields": [
+    {
+      "type": "Quantity",
+      "name": "altitude",
+      "definition": "http://qudt.org/vocab/quantitykind/Altitude",
+      "label": "Altitude",
+      "uom": {
+        "code": "m",
+        "href": "http://127.0.0.1:8758/defs/M.ttl"
+      }
+    },
+    {
+      "type": "Quantity",
+      "name": "depth",
+      "definition": "http://qudt.org/vocab/quantitykind/Depth",
+      "label": "Depth",
+      "uom": {
+        "code": "m",
+        "href": "http://127.0.0.1:8758/defs/missing.ttl"
+      }
+    }
+  ]
+}

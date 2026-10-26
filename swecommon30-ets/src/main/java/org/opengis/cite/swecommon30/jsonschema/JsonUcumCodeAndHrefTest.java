@@ -131,10 +131,12 @@ public class JsonUcumCodeAndHrefTest {
         // Each distinct href is looked up once, and its stated codes or its problem reused.
         Map<String, List<String>> codesByHref = new HashMap<>();
         Map<String, String> problemByHref = new HashMap<>();
+        Set<String> unretrieved = new HashSet<>();
         int pairs = 0;
         int compared = 0;
-        List<String> uncompared = new ArrayList<>();
-        List<String> mismatches = new ArrayList<>();
+        List<String> notUcumCodes = new ArrayList<>();
+        List<String> unverified = new ArrayList<>();
+        List<String> failures = new ArrayList<>();
         for (String type : UOM_TYPES) {
             for (JsonNode component : JsonUtils.findNodesByType(testSubject, type)) {
                 JsonNode uom = component.path("uom");
@@ -149,13 +151,13 @@ public class JsonUcumCodeAndHrefTest {
                 // The test method's "if the uom/code property is set to a UCUM code".
                 String notUcum = ucum.validate(code);
                 if (notUcum != null) {
-                    uncompared.add(shown + ": the code is not a UCUM code (" + notUcum + ")");
+                    notUcumCodes.add(shown + ": the code is not a UCUM code (" + notUcum + ")");
                     continue;
                 }
 
                 if (!codesByHref.containsKey(href) && !problemByHref.containsKey(href)) {
                     List<String> codes = new ArrayList<>();
-                    String problem = statedCodes(href, codes, abstractTest, conformancePath);
+                    String problem = statedCodes(href, codes, unretrieved, abstractTest, conformancePath);
                     if (problem != null) {
                         problemByHref.put(href, problem);
                     } else {
@@ -163,7 +165,7 @@ public class JsonUcumCodeAndHrefTest {
                     }
                 }
                 if (problemByHref.containsKey(href)) {
-                    uncompared.add(shown + ": " + problemByHref.get(href));
+                    (unretrieved.contains(href) ? failures : unverified).add(shown + ": " + problemByHref.get(href));
                     continue;
                 }
 
@@ -171,12 +173,12 @@ public class JsonUcumCodeAndHrefTest {
                 List<String> reasons = new ArrayList<>();
                 Boolean same = sameUnit(code, stated, reasons);
                 if (same == null) {
-                    uncompared.add(shown + ": " + String.join("; ", reasons));
+                    unverified.add(shown + ": " + String.join("; ", reasons));
                     continue;
                 }
                 compared++;
                 if (!same) {
-                    mismatches.add(shown + ": the definition states the UCUM code "
+                    failures.add(shown + ": the definition states the UCUM code "
                             + String.join(" or ", quoted(stated)) + ", a different unit");
                 }
             }
@@ -188,27 +190,40 @@ public class JsonUcumCodeAndHrefTest {
                             + "Time or TimeRange whose uom has both a code and an href.",
                     abstractTest, conformancePath));
         }
-        // A pair whose two units can be neither confirmed nor refuted to be the same is left out. Only a real
-        // comparison counts toward a PASS.
+
+        // A definition that gets no response at all FAILs, worded as this run failing to retrieve it, so the
+        // tester can fix the connection and run again (Libby's ruling on A.56, issue #20).
+        Assert.assertTrue(failures.isEmpty(), dataValidationError(abstractTest, conformancePath,
+                "The test subject has uom codes and hrefs that represent different units, or whose unit "
+                        + "definition could not be retrieved:"
+                        + System.lineSeparator() + String.join(System.lineSeparator(), failures)));
+
+        // A pair with a UCUM code whose units can be neither confirmed nor refuted to be the same leaves the
+        // check incomplete, so the document cannot PASS. This mirrors A.56's unchecked URNs and is
+        // provisional until OGC says how such a check is judged (issue #20).
+        if (!unverified.isEmpty()) {
+            throw new SkipException(String.format(
+                    "Test skipped [%s %s]: A.58 verification is incomplete because these uom codes and hrefs "
+                            + "could not be compared:%s%s",
+                    abstractTest, conformancePath, System.lineSeparator(),
+                    String.join(System.lineSeparator(), unverified)));
+        }
         if (compared == 0) {
             throw new SkipException(String.format(
-                    "Test skipped [%s %s]: Not applicable; no uom code and href in the test subject could be "
-                            + "compared:%s%s",
+                    "Test skipped [%s %s]: Not applicable; no uom code in the test subject that has an href "
+                            + "is a UCUM code:%s%s",
                     abstractTest, conformancePath, System.lineSeparator(),
-                    String.join(System.lineSeparator(), uncompared)));
+                    String.join(System.lineSeparator(), notUcumCodes)));
         }
-
-        Assert.assertTrue(mismatches.isEmpty(), dataValidationError(abstractTest, conformancePath,
-                "The test subject has uom codes and hrefs that represent different units:"
-                        + System.lineSeparator() + String.join(System.lineSeparator(), mismatches)));
     }
 
     /**
      * Finds the UCUM codes the unit definition at href states, into codes. Returns null when it states at
-     * least one, otherwise why none could be found. An href in the OGC UCUM namespace names its code in its
-     * path, and is not requested.
+     * least one, otherwise why none could be found; an href that gets no response is also added to
+     * unretrieved. An href in the OGC UCUM namespace names its code in its path, and is not requested.
      */
-    private String statedCodes(String href, List<String> codes, String abstractTest, String conformancePath) {
+    private String statedCodes(String href, List<String> codes, Set<String> unretrieved, String abstractTest,
+            String conformancePath) {
         URI uri;
         try {
             uri = new URI(href);
@@ -235,7 +250,8 @@ public class JsonUcumCodeAndHrefTest {
                     .build();
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
         } catch (IOException | IllegalArgumentException e) {
-            return "no HTTP response: " + e;
+            unretrieved.add(href);
+            return "Unable to retrieve definition from " + uri + ": " + detailMessage(e);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new IllegalStateException(executionError(abstractTest, conformancePath,

@@ -1,0 +1,6 @@
+{
+  "type": "Boolean",
+  "definition": "http://www.opengis.net/def/property/OGC/0/Status",
+  "label": "Pump Running",
+  "value": true
+}

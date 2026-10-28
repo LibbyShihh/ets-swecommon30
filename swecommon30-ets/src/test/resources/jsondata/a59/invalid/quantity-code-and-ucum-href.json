@@ -1,0 +1,10 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/Length",
+  "label": "Height",
+  "uom": {
+    "code": "m",
+    "href": "http://www.opengis.net/def/uom/UCUM/0/m"
+  },
+  "value": 12.0
+}

@@ -1,0 +1,26 @@
+{
+  "type": "DataRecord",
+  "label": "Profile",
+  "fields": [
+    {
+      "name": "time",
+      "type": "Time",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+      "label": "Elapsed Time",
+      "uom": { "href": "http://www.opengis.net/def/uom/UCUM/0/s" }
+    },
+    {
+      "name": "depths",
+      "type": "DataArray",
+      "label": "Depth Samples",
+      "elementType": {
+        "name": "depth",
+        "type": "Quantity",
+        "definition": "http://qudt.org/vocab/quantitykind/Depth",
+        "label": "Depth",
+        "uom": { "href": "urn:ogc:def:uom:UCUM::m" }
+      },
+      "values": [1.5, 3.0]
+    }
+  ]
+}

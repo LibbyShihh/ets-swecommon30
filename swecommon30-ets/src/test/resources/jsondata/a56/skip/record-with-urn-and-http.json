@@ -1,0 +1,8 @@
+{
+  "type": "DataRecord",
+  "label": "Distortion",
+  "fields": [
+    { "name": "k1", "type": "Quantity", "definition": "urn:x-ogc:def:property:CSM::DISTOR_RAD1", "label": "Radial Distortion 1", "uom": { "code": "1" }, "value": 0.001 },
+    { "name": "temp", "type": "Quantity", "definition": "http://127.0.0.1:8756/defs/air-temperature.ttl", "label": "Air Temperature", "uom": { "code": "Cel" }, "value": 21.5 }
+  ]
+}

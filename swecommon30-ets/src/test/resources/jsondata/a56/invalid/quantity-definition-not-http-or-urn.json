@@ -1,0 +1,7 @@
+{
+  "type": "Quantity",
+  "definition": "tag:example.org,2026:air-temperature",
+  "label": "Air Temperature",
+  "uom": { "code": "Cel" },
+  "value": 21.5
+}

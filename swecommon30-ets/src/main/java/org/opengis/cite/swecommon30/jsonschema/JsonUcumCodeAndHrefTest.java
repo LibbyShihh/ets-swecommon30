@@ -46,23 +46,19 @@ import com.fasterxml.jackson.databind.JsonNode;
  * (/conf/json-simple-components): abstract test A.58.
  *
  * <p>The TestNG workflow remains in the ETS module. The test subject is read through the validator
- * module; no schema is run. Each uom/href is requested over the network, except one in the OGC UCUM
- * namespace, whose path is the code itself.</p>
+ * module.</p>
  */
 public class JsonUcumCodeAndHrefTest {
 
-    /** The types whose schema defines "uom" as basicTypes.json UnitReference. */
     private static final List<String> UOM_TYPES = List.of("Quantity", "QuantityRange", "Time", "TimeRange");
 
-    /** QUDT's statement of a unit's UCUM code, as on https://qudt.org/vocab/unit/DEG_C. */
     private static final String QUDT_UCUM_CODE = "http://qudt.org/schema/qudt/ucumCode";
 
     private static final String OGC_UCUM_PATH = "/def/uom/UCUM/0/";
 
     private final SweCommonJsonSchemaValidator validator = new SweCommonJsonSchemaValidator();
 
-    // Not ClientUtils.buildClient(): HttpURLConnection never follows an http to https redirect, which is
-    // how http://qudt.org answers for its unit definitions.
+    // Follows http to https redirects, which ClientUtils.buildClient() does not.
     private final HttpClient httpClient = HttpClient.newBuilder()
             .followRedirects(HttpClient.Redirect.NORMAL)
             .connectTimeout(Duration.ofSeconds(10))
@@ -128,7 +124,6 @@ public class JsonUcumCodeAndHrefTest {
             return;
         }
 
-        // Each distinct href is looked up once, and its stated codes or its problem reused.
         Map<String, List<String>> codesByHref = new HashMap<>();
         Map<String, String> problemByHref = new HashMap<>();
         Set<String> unretrieved = new HashSet<>();
@@ -148,7 +143,6 @@ public class JsonUcumCodeAndHrefTest {
                 String href = uom.get("href").asText();
                 String shown = describe(type, component) + " (uom/code '" + code + "', uom/href " + href + ")";
 
-                // The test method's "if the uom/code property is set to a UCUM code".
                 String notUcum = ucum.validate(code);
                 if (notUcum != null) {
                     notUcumCodes.add(shown + ": the code is not a UCUM code (" + notUcum + ")");
@@ -191,16 +185,12 @@ public class JsonUcumCodeAndHrefTest {
                     abstractTest, conformancePath));
         }
 
-        // A definition that gets no response at all FAILs, worded as this run failing to retrieve it, so the
-        // tester can fix the connection and run again (Libby's ruling on A.56, issue #20).
         Assert.assertTrue(failures.isEmpty(), dataValidationError(abstractTest, conformancePath,
                 "The test subject has uom codes and hrefs that represent different units, or whose unit "
                         + "definition could not be retrieved:"
                         + System.lineSeparator() + String.join(System.lineSeparator(), failures)));
 
-        // A pair with a UCUM code whose units can be neither confirmed nor refuted to be the same leaves the
-        // check incomplete, so the document cannot PASS. This mirrors A.56's unchecked URNs and is
-        // provisional until OGC says how such a check is judged (issue #20).
+        // Provisional until OGC answers issue #20.
         if (!unverified.isEmpty()) {
             throw new SkipException(String.format(
                     "Test skipped [%s %s]: A.58 verification is incomplete because these uom codes and hrefs "
@@ -217,11 +207,7 @@ public class JsonUcumCodeAndHrefTest {
         }
     }
 
-    /**
-     * Finds the UCUM codes the unit definition at href states, into codes. Returns null when it states at
-     * least one, otherwise why none could be found; an href that gets no response is also added to
-     * unretrieved. An href in the OGC UCUM namespace names its code in its path, and is not requested.
-     */
+    /** Finds the UCUM codes the definition at href states; returns null, or why there are none. */
     private String statedCodes(String href, List<String> codes, Set<String> unretrieved, String abstractTest,
             String conformancePath) {
         URI uri;
@@ -281,15 +267,13 @@ public class JsonUcumCodeAndHrefTest {
             return "the definition could not be read as " + lang + ": " + detailMessage(e);
         }
 
-        // Only what the definition says about the href's own resource. QUDT serves https but names its units
-        // with http, so the scheme is not compared.
-        Set<String> resource = new HashSet<>(
-                List.of(withoutScheme(href), withoutScheme(response.uri().toString())));
+        // Only statements about the href itself, ignoring http vs https.
+        String resource = withoutScheme(href);
         StmtIterator statements = model.listStatements(null, model.createProperty(QUDT_UCUM_CODE), (RDFNode) null);
         while (statements.hasNext()) {
             Statement statement = statements.next();
             if (statement.getSubject().isURIResource() && statement.getObject().isLiteral()
-                    && resource.contains(withoutScheme(statement.getSubject().getURI()))) {
+                    && resource.equals(withoutScheme(statement.getSubject().getURI()))) {
                 codes.add(statement.getObject().asLiteral().getLexicalForm());
             }
         }
@@ -300,11 +284,7 @@ public class JsonUcumCodeAndHrefTest {
         return uri.replaceFirst("(?i)^https?://", "");
     }
 
-    /**
-     * Whether code names the same unit as one of the stated codes: identical, or equal once both are reduced
-     * to UCUM canonical form, so m/s is m.s-1. Returns null when no stated code matched and at least one
-     * could not be reduced, with why in reasons.
-     */
+    /** Whether code is the same unit as a stated code; null if it can't be decided. */
     private Boolean sameUnit(String code, List<String> stated, List<String> reasons) {
         boolean undecided = false;
         for (String other : stated) {
@@ -334,7 +314,6 @@ public class JsonUcumCodeAndHrefTest {
         return quoted;
     }
 
-    /** Names one component, so a failure says which one in the document it is about. */
     private String describe(String typeName, JsonNode component) {
         for (String key : new String[] { "name", "label", "id" }) {
             if (component.hasNonNull(key) && component.get(key).isTextual()) {

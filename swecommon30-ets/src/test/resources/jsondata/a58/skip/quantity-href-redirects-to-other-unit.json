@@ -1,0 +1,10 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/Length",
+  "label": "Height",
+  "uom": {
+    "code": "m",
+    "href": "http://127.0.0.1:8758/defs/FT.ttl"
+  },
+  "value": 3.0
+}

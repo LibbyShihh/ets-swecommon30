@@ -1,0 +1,9 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/Temperature",
+  "label": "Air Temperature",
+  "uom": {
+    "code": "Cel"
+  },
+  "value": 21.5
+}

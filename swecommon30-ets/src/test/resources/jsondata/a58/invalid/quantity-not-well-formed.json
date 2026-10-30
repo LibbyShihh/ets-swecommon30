@@ -1,0 +1,7 @@
+{
+  "type": "Quantity",
+  "label": "Air Temperature",
+  "uom": {
+    "code": "Cel",
+    "href": "http://127.0.0.1:8758/defs/DEG_C.ttl"
+  },

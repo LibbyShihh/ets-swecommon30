@@ -1,0 +1,46 @@
+{
+  "type": "DataRecord",
+  "label": "Weather Observation",
+  "fields": [
+    {
+      "type": "Time",
+      "name": "time",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+      "label": "Elapsed Time",
+      "uom": {
+        "code": "s",
+        "href": "http://www.opengis.net/def/uom/UCUM/0/s"
+      }
+    },
+    {
+      "type": "Quantity",
+      "name": "temp",
+      "definition": "http://qudt.org/vocab/quantitykind/Temperature",
+      "label": "Air Temperature",
+      "uom": {
+        "code": "Cel",
+        "href": "http://127.0.0.1:8758/defs/DEG_C.ttl"
+      }
+    },
+    {
+      "type": "QuantityRange",
+      "name": "range",
+      "definition": "http://qudt.org/vocab/quantitykind/Distance",
+      "label": "Visibility Range",
+      "uom": {
+        "code": "m",
+        "href": "http://127.0.0.1:8758/defs/M.ttl"
+      },
+      "value": [10, 2000]
+    },
+    {
+      "type": "Quantity",
+      "name": "press",
+      "definition": "http://qudt.org/vocab/quantitykind/AtmosphericPressure",
+      "label": "Air Pressure",
+      "uom": {
+        "code": "hPa"
+      }
+    }
+  ]
+}

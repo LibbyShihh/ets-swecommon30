@@ -1,0 +1,6 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<http://127.0.0.1:8758/defs/GREGORIAN.ttl>
+  a skos:Concept ;
+  rdfs:label "Gregorian calendar, ISO 8601 notation"@en .

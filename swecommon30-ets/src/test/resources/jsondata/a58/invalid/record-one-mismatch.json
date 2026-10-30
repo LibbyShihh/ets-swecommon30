@@ -1,0 +1,27 @@
+{
+  "type": "DataRecord",
+  "label": "Weather Observation",
+  "fields": [
+    {
+      "type": "Quantity",
+      "name": "temp",
+      "definition": "http://qudt.org/vocab/quantitykind/Temperature",
+      "label": "Air Temperature",
+      "uom": {
+        "code": "Cel",
+        "href": "http://127.0.0.1:8758/defs/DEG_C.ttl"
+      }
+    },
+    {
+      "type": "TimeRange",
+      "name": "window",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+      "label": "Averaging Window",
+      "uom": {
+        "code": "min",
+        "href": "http://www.opengis.net/def/uom/UCUM/0/h"
+      },
+      "value": [0, 10]
+    }
+  ]
+}

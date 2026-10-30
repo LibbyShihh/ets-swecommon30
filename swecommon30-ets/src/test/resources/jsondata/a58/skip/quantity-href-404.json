@@ -1,0 +1,10 @@
+{
+  "type": "Quantity",
+  "definition": "http://qudt.org/vocab/quantitykind/Altitude",
+  "label": "Altitude",
+  "uom": {
+    "code": "m",
+    "href": "http://127.0.0.1:8758/defs/missing.ttl"
+  },
+  "value": 21.5
+}

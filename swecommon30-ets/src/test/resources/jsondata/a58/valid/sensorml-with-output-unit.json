@@ -1,0 +1,19 @@
+{
+  "type": "PhysicalSystem",
+  "id": "barometer-1",
+  "definition": "http://www.w3.org/ns/sosa/Sensor",
+  "uniqueId": "urn:x-example:sensor:barometer-1",
+  "label": "Barometer",
+  "outputs": [
+    {
+      "type": "Quantity",
+      "name": "press",
+      "definition": "http://qudt.org/vocab/quantitykind/AtmosphericPressure",
+      "label": "Air Pressure",
+      "uom": {
+        "code": "hPa",
+        "href": "http://127.0.0.1:8758/defs/HPA.ttl"
+      }
+    }
+  ]
+}

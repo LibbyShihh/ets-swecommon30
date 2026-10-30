@@ -89,6 +89,13 @@
       <version>${jackson.version}</version>
     </dependency>
 
+    <!-- UCUM essence for A.58: whether a code is UCUM, and whether two codes name the same unit -->
+    <dependency>
+      <groupId>org.fhir</groupId>
+      <artifactId>ucum</artifactId>
+      <version>1.0.10</version>
+    </dependency>
+
   </dependencies>
 
   <build>

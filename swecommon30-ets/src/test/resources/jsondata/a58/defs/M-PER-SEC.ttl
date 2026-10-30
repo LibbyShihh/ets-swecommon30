@@ -1,0 +1,8 @@
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Named with https although served over http, as QUDT names its units with http and serves them over https.
+<https://127.0.0.1:8758/defs/M-PER-SEC.ttl>
+  a qudt:Unit ;
+  rdfs:label "Metre per Second"@en ;
+  qudt:ucumCode "m.s-1"^^qudt:UCUMcs .

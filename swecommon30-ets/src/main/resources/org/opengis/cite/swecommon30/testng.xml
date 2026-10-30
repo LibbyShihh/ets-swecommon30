@@ -31,6 +31,7 @@
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonInlineValueConstraintTest" />
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonUcumCodeUsedTest" />
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonDefinitionResolvableTest" />
+      <class name="org.opengis.cite.swecommon30.jsonschema.JsonUcumCodeAndHrefTest" />
     </classes>
   </test>
   <test name="A.10 Record Components JSON Schema (/conf/json-record-components)">

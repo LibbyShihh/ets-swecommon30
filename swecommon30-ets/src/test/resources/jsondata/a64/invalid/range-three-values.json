@@ -1,0 +1,25 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "R",
+  "elementType": {
+    "name": "r",
+    "type": "QuantityRange",
+    "definition": "http://sensorml.com/ont/swe/property/R",
+    "label": "R",
+    "uom": {
+      "code": "m"
+    }
+  },
+  "values": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      2
+    ]
+  ]
+}

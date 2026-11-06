@@ -1,0 +1,96 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "All Scalars",
+  "elementCount": {
+    "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfPoints",
+    "value": 3
+  },
+  "elementType": {
+    "name": "point",
+    "type": "DataRecord",
+    "label": "Point",
+    "fields": [
+      {
+        "name": "flag",
+        "type": "Boolean",
+        "definition": "http://sensorml.com/ont/swe/property/Flag",
+        "label": "Flag"
+      },
+      {
+        "name": "note",
+        "type": "Text",
+        "definition": "http://sensorml.com/ont/swe/property/Note",
+        "label": "Note"
+      },
+      {
+        "name": "mode",
+        "type": "Category",
+        "definition": "http://sensorml.com/ont/swe/property/Mode",
+        "label": "Mode"
+      },
+      {
+        "name": "n",
+        "type": "Count",
+        "definition": "http://sensorml.com/ont/swe/property/N",
+        "label": "N"
+      },
+      {
+        "name": "temp",
+        "type": "Quantity",
+        "definition": "http://qudt.org/vocab/quantitykind/Length",
+        "label": "Temp",
+        "uom": {
+          "code": "Cel"
+        }
+      },
+      {
+        "name": "t",
+        "type": "Time",
+        "definition": "http://sensorml.com/ont/swe/property/T",
+        "label": "T",
+        "uom": {
+          "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
+        }
+      },
+      {
+        "name": "rt",
+        "type": "Time",
+        "definition": "http://sensorml.com/ont/swe/property/Rt",
+        "label": "Rt",
+        "uom": {
+          "code": "s"
+        }
+      }
+    ]
+  },
+  "values": [
+    {
+      "flag": true,
+      "note": "ok",
+      "mode": "ON",
+      "n": 12,
+      "temp": 21.5,
+      "t": "2023-03-15T12:45:56Z",
+      "rt": -23.1
+    },
+    {
+      "flag": false,
+      "note": "a full sentence",
+      "mode": "OFF",
+      "n": 0,
+      "temp": "NaN",
+      "t": "+Infinity",
+      "rt": 12
+    },
+    {
+      "flag": true,
+      "note": "",
+      "mode": "diesel",
+      "n": 12.5,
+      "temp": "-Infinity",
+      "t": "2023-03-15T12:45:56",
+      "rt": "NaN"
+    }
+  ]
+}

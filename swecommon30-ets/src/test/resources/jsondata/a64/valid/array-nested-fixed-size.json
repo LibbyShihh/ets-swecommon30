@@ -1,0 +1,40 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "Grid",
+  "elementCount": {
+    "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfPoints",
+    "value": 2
+  },
+  "elementType": {
+    "type": "DataArray",
+    "definition": "http://sensorml.com/ont/swe/property/Table",
+    "label": "Row",
+    "elementCount": {
+      "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfPoints",
+      "value": 3
+    },
+    "elementType": {
+      "name": "v",
+      "type": "Quantity",
+      "definition": "http://qudt.org/vocab/quantitykind/Length",
+      "label": "V",
+      "uom": {
+        "code": "m"
+      }
+    },
+    "name": "row"
+  },
+  "values": [
+    [
+      1,
+      2,
+      3
+    ],
+    [
+      4,
+      "NaN",
+      6
+    ]
+  ]
+}

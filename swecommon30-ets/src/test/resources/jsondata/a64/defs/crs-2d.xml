@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:GeodeticCRS xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" gml:id="crs-2d">
+  <gml:name>Test geographic 2D</gml:name>
+  <gml:ellipsoidalCS>
+   <gml:EllipsoidalCS gml:id="cs-2d">
+    <gml:axis>
+      <gml:CoordinateSystemAxis gml:id="lat" uom="deg">
+        <gml:axisAbbrev>Lat</gml:axisAbbrev>
+        <gml:axisDirection codeSpace="EPSG">north</gml:axisDirection>
+      </gml:CoordinateSystemAxis>
+    </gml:axis>
+    <gml:axis>
+      <gml:CoordinateSystemAxis gml:id="lon" uom="deg">
+        <gml:axisAbbrev>Lon</gml:axisAbbrev>
+        <gml:axisDirection codeSpace="EPSG">east</gml:axisDirection>
+      </gml:CoordinateSystemAxis>
+    </gml:axis>
+   </gml:EllipsoidalCS>
+  </gml:ellipsoidalCS>
+  <gml:geodeticDatum xlink:href="https://epsg.org/api/v1/Datum/6326/export?format=gml"/>
+</gml:GeodeticCRS>

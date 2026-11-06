@@ -1,0 +1,16 @@
+{
+  "type": "PhysicalSystem",
+  "uniqueId": "urn:example:sensors:weather-station-003",
+  "label": "Example Weather Station",
+  "definition": "http://www.w3.org/ns/sosa/ObservingProcedure",
+  "outputs": [
+    {
+      "name": "samplingTime",
+      "type": "Time",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+      "label": "Sampling Time",
+      "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" },
+      "value": "2009-11-05T16:29:26Z"
+    }
+  ]
+}

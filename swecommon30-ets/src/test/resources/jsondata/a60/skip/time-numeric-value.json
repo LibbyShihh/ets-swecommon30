@@ -1,0 +1,7 @@
+{
+  "type": "Time",
+  "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+  "label": "Model Run Time",
+  "uom": { "code": "s" },
+  "value": 1257415633
+}

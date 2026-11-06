@@ -3,6 +3,7 @@ package org.opengis.cite.swecommon30.jsonschema;
 import java.io.File;
 import java.io.IOException;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +122,12 @@ public class JsonIso8601UomUsedTest {
         }
         try {
             OffsetDateTime.parse(value.asText());
+            return true;
+        } catch (DateTimeParseException e) {
+            // OffsetDateTime rejects a leap second (23:59:60); ISO_INSTANT reads it.
+        }
+        try {
+            DateTimeFormatter.ISO_INSTANT.parse(value.asText());
             return true;
         } catch (DateTimeParseException e) {
             return false;

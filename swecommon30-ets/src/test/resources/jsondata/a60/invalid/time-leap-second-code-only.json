@@ -1,0 +1,7 @@
+{
+  "type": "Time",
+  "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+  "label": "Sampling Time",
+  "uom": { "code": "s" },
+  "value": "2016-12-31T23:59:60Z"
+}

@@ -279,6 +279,12 @@ public class JsonEncodedValuesTest {
             DateTimeFormatter.ISO_DATE_TIME.parse(value.asText());
             return true;
         } catch (DateTimeParseException e) {
+            // ISO_DATE_TIME rejects a leap second (23:59:60); ISO_INSTANT reads it.
+        }
+        try {
+            DateTimeFormatter.ISO_INSTANT.parse(value.asText());
+            return true;
+        } catch (DateTimeParseException e) {
             return false;
         }
     }

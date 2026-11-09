@@ -92,7 +92,7 @@ public class JsonEncodedValuesTest {
         // document that are given inline rather than by href. The declared encoding is not consulted,
         // because none of those tests looks at it.
         List<String> reports = new ArrayList<>();
-        Map<String, String> uncheckedCrs = new LinkedHashMap<>();
+        Map<String, String> unchecked = new LinkedHashMap<>();
         int tested = 0;
         for (String type : BLOCK_TYPES) {
             List<JsonNode> blocks = JsonUtils.findNodesByType(testSubject, type).stream()
@@ -102,7 +102,7 @@ public class JsonEncodedValuesTest {
             for (int i = 0; i < blocks.size(); i++) {
                 JsonNode block = blocks.get(i);
                 List<String> violations = new ArrayList<>();
-                encodingRules.validate(block, block.get("values"), "values", violations, uncheckedCrs);
+                encodingRules.validate(block, block.get("values"), "values", violations, unchecked);
                 if (!violations.isEmpty()) {
                     reports.add(describe(type, block, i, blocks.size()) + System.lineSeparator()
                             + violations.stream().map(line -> "  " + line)
@@ -121,12 +121,12 @@ public class JsonEncodedValuesTest {
                 "The test subject's inline values do not follow the JSON encoding rules:" + System.lineSeparator()
                         + String.join(System.lineSeparator(), reports)));
 
-        if (!uncheckedCrs.isEmpty()) {
+        if (!unchecked.isEmpty()) {
             throw new SkipException(String.format(
                     "Test skipped [%s %s]: The inline values follow the JSON encoding rules as far as they could be "
-                            + "checked, but A.89's dimension check could not be made for these srs:%s%s",
+                            + "checked, but these could not be checked:%s%s",
                     abstractTest, conformancePath, System.lineSeparator(),
-                    uncheckedCrs.entrySet().stream().map(e -> "  " + e.getKey() + ": " + e.getValue())
+                    unchecked.entrySet().stream().map(e -> "  " + e.getKey() + ": " + e.getValue())
                             .collect(Collectors.joining(System.lineSeparator()))));
         }
     }

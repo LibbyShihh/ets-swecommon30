@@ -75,8 +75,8 @@ public class JsonEncodingRulesValidator {
 
     /**
      * Checks one encoded value against the component that describes it, by the test of conformance
-     * class A.17 for that component's type. A descriptor given by href, or of a type no A.17 test
-     * covers, is not followed.
+     * class A.17 for that component's type. A descriptor given by href is not resolved, and is
+     * reported as unchecked; one of a type no A.17 test covers is not followed.
      *
      * @param component data component that describes the value
      * @param value encoded value to check
@@ -87,6 +87,11 @@ public class JsonEncodingRulesValidator {
     public void validate(JsonNode component, JsonNode value, String location, List<String> violations,
             Map<String, String> unchecked) {
         if (component == null || !component.isObject()) {
+            return;
+        }
+        if (component.has("href")) {
+            unchecked.put("descriptor " + component.get("href").asText(),
+                    "given by href, which is not resolved, so the values it describes were not checked");
             return;
         }
         String type = component.path("type").asText();
@@ -282,7 +287,7 @@ public class JsonEncodingRulesValidator {
         String srs = component.path("srs").asText();
         Integer dimension = crsDimension(srs);
         if (dimension == null) {
-            unchecked.put(srs, crsLookupFailures.get(srs));
+            unchecked.put("srs " + srs, "A.89's dimension check could not be made: " + crsLookupFailures.get(srs));
             return;
         }
         Set<Integer> lengths = new TreeSet<>();

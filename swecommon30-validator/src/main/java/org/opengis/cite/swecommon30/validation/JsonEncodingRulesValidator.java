@@ -11,6 +11,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -284,6 +285,9 @@ public class JsonEncodingRulesValidator {
                             "%s: A.89: not a valid GeoJSON geometry: %s", location, message)));
             return;
         }
+        if (!ringsClosed(geomType.asText(), value.get("coordinates"), location, violations)) {
+            return;
+        }
         String srs = component.path("srs").asText();
         Integer dimension = crsDimension(srs);
         if (dimension == null) {
@@ -298,6 +302,45 @@ public class JsonEncodingRulesValidator {
                         location, length, srs, dimension));
             }
         }
+    }
+
+    /**
+     * RFC 7946 section 3.1.6: each ring of a Polygon or MultiPolygon has identical first and last positions,
+     * which the GeoJSON schema does not check.
+     */
+    private boolean ringsClosed(String geomType, JsonNode coordinates, String location, List<String> violations) {
+        List<JsonNode> polygons = new ArrayList<>();
+        if ("Polygon".equals(geomType)) {
+            polygons.add(coordinates);
+        } else if ("MultiPolygon".equals(geomType)) {
+            coordinates.forEach(polygons::add);
+        }
+        boolean closed = true;
+        for (int p = 0; p < polygons.size(); p++) {
+            JsonNode rings = polygons.get(p);
+            for (int r = 0; r < rings.size(); r++) {
+                JsonNode ring = rings.get(r);
+                if (!samePosition(ring.get(0), ring.get(ring.size() - 1))) {
+                    violations.add(String.format("%s: A.89: not a valid GeoJSON geometry: %sring %d is not closed; "
+                            + "RFC 7946 section 3.1.6 requires its first and last positions to be identical", location,
+                            "MultiPolygon".equals(geomType) ? "polygon " + p + ", " : "", r));
+                    closed = false;
+                }
+            }
+        }
+        return closed;
+    }
+
+    private boolean samePosition(JsonNode a, JsonNode b) {
+        if (a.size() != b.size()) {
+            return false;
+        }
+        for (int i = 0; i < a.size(); i++) {
+            if (a.get(i).asDouble() != b.get(i).asDouble()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** Collects the length of every GeoJSON position, an array of numbers, under a coordinates value. */

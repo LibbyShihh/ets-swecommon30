@@ -184,7 +184,7 @@ public class JsonEncodingRulesValidator {
     /**
      * A.85 (DataRecord fields) and A.86 (Vector coordinates): a JSON Object whose members are named
      * like the fields or coordinates, each valid by its descriptor. Only a record field marked
-     * optional may be omitted; A.86 allows no omission.
+     * optional may be omitted or null (Requirement 85 B); A.86 allows neither.
      */
     private void checkMembers(JsonNode component, String membersKey, String abstractTest, JsonNode value,
             String location, List<String> violations, Map<String, String> unchecked) {
@@ -204,9 +204,12 @@ public class JsonEncodingRulesValidator {
         }
         for (Map.Entry<String, JsonNode> member : members.entrySet()) {
             String name = member.getKey();
-            if (value.has(name)) {
+            boolean optional = "A.85".equals(abstractTest) && member.getValue().path("optional").asBoolean(false);
+            if (optional && value.path(name).isNull()) {
+                continue;
+            } else if (value.has(name)) {
                 validate(member.getValue(), value.get(name), location + "." + name, violations, unchecked);
-            } else if ("A.86".equals(abstractTest) || !member.getValue().path("optional").asBoolean(false)) {
+            } else if (!optional) {
                 violations.add(String.format("%s: %s: member '%s' is missing%s", location, abstractTest, name,
                         "A.85".equals(abstractTest) ? "; only members of optional fields may be omitted" : ""));
             }

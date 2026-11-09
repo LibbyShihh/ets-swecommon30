@@ -2,7 +2,10 @@ package org.opengis.cite.swecommon30.jsonschema;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,8 +38,8 @@ public class JsonReferencedEncodedValuesTest {
 
     private static final String DATA_STREAM = "DataStream";
 
-    /** The test method's URL schemes for values/href: http, https and data. */
-    private static final List<String> HREF_SCHEME_PREFIXES = List.of("http:", "https:", "data:");
+    /** The test method's URL schemes for values/href. */
+    private static final List<String> HREF_SCHEMES = List.of("http", "https", "data");
 
     private final OfflineSweCommonJsonSchemaValidator validator = new OfflineSweCommonJsonSchemaValidator();
 
@@ -124,14 +127,20 @@ public class JsonReferencedEncodedValuesTest {
                         + report));
     }
 
-    /** Keeps the instances whose values/href starts with one of the test method's schemes. */
+    /** Keeps the instances whose values/href is a URI in one of the test method's schemes. */
     private List<JsonNode> withReferencedValues(List<JsonNode> instances) {
         return instances.stream()
-                .filter(instance -> {
-                    String href = instance.path("values").path("href").asText();
-                    return HREF_SCHEME_PREFIXES.stream().anyMatch(href::startsWith);
-                })
+                .filter(instance -> HREF_SCHEMES.contains(scheme(instance.path("values").path("href").asText())))
                 .collect(Collectors.toList());
+    }
+
+    private String scheme(String href) {
+        try {
+            String scheme = new URI(href).getScheme();
+            return scheme == null ? "" : scheme.toLowerCase(Locale.ROOT);
+        } catch (URISyntaxException e) {
+            return "";
+        }
     }
 
     private JsonNode readTestSubject(String abstractTest, String conformancePath) {

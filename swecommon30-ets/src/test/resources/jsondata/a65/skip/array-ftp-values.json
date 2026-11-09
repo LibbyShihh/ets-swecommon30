@@ -1,0 +1,12 @@
+{
+  "type": "DataArray",
+  "label": "Calibration Table",
+  "elementType": {
+    "name": "r",
+    "type": "Quantity",
+    "definition": "https://qudt.org/vocab/quantitykind/Resistance",
+    "label": "Resistance",
+    "uom": { "code": "KOhm" }
+  },
+  "values": { "href": "ftp://example.org/data/calibration.json" }
+}

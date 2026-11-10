@@ -1,0 +1,103 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "Detections",
+  "elementType": {
+    "name": "detection",
+    "type": "DataRecord",
+    "label": "Detection",
+    "fields": [
+      {
+        "name": "footprint",
+        "type": "Geometry",
+        "definition": "http://sensorml.com/ont/swe/property/Location",
+        "label": "Footprint",
+        "srs": "http://127.0.0.1:8764/defs/crs-2d.xml"
+      },
+      {
+        "name": "position",
+        "type": "Geometry",
+        "definition": "http://sensorml.com/ont/swe/property/Location",
+        "label": "Position",
+        "srs": "http://127.0.0.1:8764/defs/crs-3d.xml"
+      }
+    ]
+  },
+  "values": [
+    {
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        ]
+      },
+      "position": {
+        "type": "Point",
+        "coordinates": [
+          1.5,
+          103.8,
+          20
+        ]
+      }
+    },
+    {
+      "footprint": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          ]
+        ]
+      },
+      "position": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:EllipsoidalCS xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" gml:id="cs-3d">
+    <gml:axis>
+      <gml:CoordinateSystemAxis gml:id="lat" uom="deg">
+        <gml:axisAbbrev>Lat</gml:axisAbbrev>
+        <gml:axisDirection codeSpace="EPSG">north</gml:axisDirection>
+      </gml:CoordinateSystemAxis>
+    </gml:axis>
+    <gml:axis>
+      <gml:CoordinateSystemAxis gml:id="lon" uom="deg">
+        <gml:axisAbbrev>Lon</gml:axisAbbrev>
+        <gml:axisDirection codeSpace="EPSG">east</gml:axisDirection>
+      </gml:CoordinateSystemAxis>
+    </gml:axis>
+    <gml:axis>
+      <gml:CoordinateSystemAxis gml:id="h" uom="m">
+        <gml:axisAbbrev>h</gml:axisAbbrev>
+        <gml:axisDirection codeSpace="EPSG">up</gml:axisDirection>
+      </gml:CoordinateSystemAxis>
+    </gml:axis>
+</gml:EllipsoidalCS>

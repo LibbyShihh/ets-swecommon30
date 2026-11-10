@@ -1,0 +1,13 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "Q",
+  "elementType": {
+    "name": "q",
+    "href": "http://example.org/defs/q.json"
+  },
+  "values": [
+    1,
+    2
+  ]
+}

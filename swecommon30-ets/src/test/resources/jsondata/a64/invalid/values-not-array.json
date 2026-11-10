@@ -1,0 +1,20 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "Q",
+  "elementType": {
+    "name": "q",
+    "type": "Quantity",
+    "definition": "http://qudt.org/vocab/quantitykind/Length",
+    "label": "Q",
+    "uom": {
+      "code": "m"
+    }
+  },
+  "encoding": {
+    "type": "TextEncoding",
+    "tokenSeparator": ",",
+    "blockSeparator": "\n"
+  },
+  "values": "1,2,3"
+}

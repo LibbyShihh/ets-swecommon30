@@ -1,0 +1,21 @@
+[
+  {
+    "type": "GeometryCollection",
+    "geometries": [
+      {
+        "type": "Point",
+        "coordinates": [
+          -86.3254,
+          35.4812
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Point",
+    "coordinates": [
+      -86.3254,
+      35.4812
+    ]
+  }
+]

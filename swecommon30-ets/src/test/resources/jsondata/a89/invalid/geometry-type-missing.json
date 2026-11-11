@@ -1,0 +1,31 @@
+[
+  {
+    "time": "2007-10-23T15:46:12Z",
+    "kind": "Car",
+    "geom": {
+      "type": "Point",
+      "coordinates": [
+        -86.3254,
+        35.4812
+      ]
+    },
+    "alt": {
+      "type": "Point",
+      "coordinates": [
+        -86.3254,
+        35.4812,
+        210
+      ]
+    }
+  },
+  {
+    "time": "2007-10-23T15:49:03Z",
+    "kind": "Truck",
+    "geom": {
+      "coordinates": [
+        -86.3254,
+        35.4812
+      ]
+    }
+  }
+]

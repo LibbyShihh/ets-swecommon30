@@ -1,0 +1,19 @@
+{
+  "type": "DataChoice",
+  "label": "Position or note",
+  "items": [
+    {
+      "name": "text",
+      "type": "Text",
+      "definition": "http://sensorml.com/ont/swe/property/Name",
+      "label": "Text"
+    },
+    {
+      "name": "geom",
+      "type": "Geometry",
+      "definition": "http://sensorml.com/ont/swe/property/Location",
+      "label": "Geom",
+      "srs": "http://127.0.0.1:8789/defs/crs-2d.xml"
+    }
+  ]
+}

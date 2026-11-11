@@ -1,0 +1,17 @@
+{
+  "type": "DataRecord",
+  "label": "Station status",
+  "fields": [
+    { "name": "online", "type": "Boolean", "definition": "http://example.org/def/online" },
+    { "name": "note", "type": "Text", "definition": "http://example.org/def/note" },
+    { "name": "mode", "type": "Category", "definition": "http://example.org/def/mode" },
+    { "name": "samples", "type": "Count", "definition": "http://example.org/def/samples" },
+    { "name": "temp", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } },
+    {
+      "name": "time",
+      "type": "Time",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+      "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }
+    }
+  ]
+}

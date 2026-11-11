@@ -1,0 +1,12 @@
+{
+  "type": "DataRecord",
+  "fields": [
+    { "name": "temp", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } },
+    {
+      "name": "location",
+      "type": "Geometry",
+      "definition": "http://example.org/def/location",
+      "srs": "http://127.0.0.1:9/crs"
+    }
+  ]
+}

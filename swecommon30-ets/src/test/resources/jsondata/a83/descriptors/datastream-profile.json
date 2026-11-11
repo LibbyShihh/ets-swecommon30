@@ -1,0 +1,29 @@
+{
+  "type": "DataStream",
+  "label": "Profile series",
+  "elementType": {
+    "name": "profile",
+    "type": "DataRecord",
+    "fields": [
+      {
+        "name": "time",
+        "type": "Time",
+        "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+        "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }
+      },
+      {
+        "name": "profilePoints",
+        "type": "DataArray",
+        "elementType": {
+          "name": "point",
+          "type": "DataRecord",
+          "fields": [
+            { "name": "depth", "type": "Quantity", "definition": "http://example.org/def/depth", "uom": { "code": "m" } },
+            { "name": "temp", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } }
+          ]
+        }
+      }
+    ]
+  },
+  "encoding": { "type": "JSONEncoding" }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "DataArray",
+  "label": "Temperatures",
+  "elementCount": { "type": "Count", "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfPoints", "label": "Implicit Size" },
+  "elementType": { "name": "temp", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } },
+  "encoding": { "type": "JSONEncoding" }
+}

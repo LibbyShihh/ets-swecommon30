@@ -1,0 +1,6 @@
+{
+  "type": "DataArray",
+  "label": "Temperatures",
+  "elementCount": { "type": "Count", "value": 2 },
+  "elementType": { "name": "temp", "href": "http://example.org/components/temperature.json" }
+}

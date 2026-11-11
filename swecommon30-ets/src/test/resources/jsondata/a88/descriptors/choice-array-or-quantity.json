@@ -1,0 +1,13 @@
+{
+  "type": "DataChoice",
+  "label": "Pair or single",
+  "items": [
+    {
+      "name": "arr",
+      "type": "DataArray",
+      "elementCount": { "type": "Count", "value": 2 },
+      "elementType": { "name": "temp", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } }
+    },
+    { "name": "q", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } }
+  ]
+}

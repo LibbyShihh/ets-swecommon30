@@ -1,0 +1,16 @@
+{
+  "type": "Matrix",
+  "definition": "http://sweet.jpl.nasa.gov/2.0/physPressure.owl#Stress",
+  "elementCount": { "type": "Count", "value": 3 },
+  "elementType": {
+    "name": "row",
+    "type": "Matrix",
+    "elementCount": { "type": "Count", "value": 3 },
+    "elementType": {
+      "name": "coef",
+      "type": "Quantity",
+      "definition": "http://sweet.jpl.nasa.gov/2.0/mathVector.owl#Coordinate",
+      "uom": { "code": "MPa" }
+    }
+  }
+}

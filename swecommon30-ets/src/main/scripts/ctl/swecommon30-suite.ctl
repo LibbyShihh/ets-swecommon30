@@ -52,6 +52,13 @@
                  </label>
                  <input name="doc" id="doc" size="128" type="file" />
                </p>
+               <p>
+                 <label for="descriptor">
+                   <h4 style="margin-bottom: 0.5em">Location of descriptor (absolute http: or file: URI)</h4>
+                 </label>
+                 <input id="descriptor" name="descriptor" size="128" type="text" value="" />
+               </p>
+               <p> Only needed when the IUT is JSON encoded values (A.83 to A.89). Leave it empty otherwise.</p>
              </fieldset>
              <p>
                <input class="form-button" type="submit" value="Start"/> | 
@@ -73,6 +80,7 @@
             </xsl:choose>
           </entry>
           <entry key="ics"><xsl:value-of select="$form-data/values/value[@key='level']"/></entry>
+          <entry key="descriptor"><xsl:value-of select="normalize-space($form-data/values/value[@key='descriptor'])"/></entry>
 		    </properties>
 		   </xsl:variable>
        <xsl:variable name="testRunDir">

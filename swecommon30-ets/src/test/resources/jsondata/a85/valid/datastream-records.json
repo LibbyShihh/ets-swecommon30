@@ -1,0 +1,4 @@
+[
+  { "time": "2007-10-23T15:46:12Z", "speed": 15.3, "location": { "lat": 45.3, "lon": -90.5, "alt": 311 }, "wind": { "speed": 3.5, "direction": 270 } },
+  { "time": "2007-10-23T15:46:13Z", "speed": 15.4, "location": { "lat": 45.4, "lon": -90.6, "alt": 312 }, "wind": { "speed": "NaN", "direction": 265 } }
+]

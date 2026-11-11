@@ -8,8 +8,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.opengis.cite.swecommon30.SuiteAttribute;
@@ -24,7 +22,6 @@ import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.MissingNode;
 
 /**
  * Conformance tests for conformance class A.17, JSON Encoding Rules
@@ -35,12 +32,7 @@ import com.fasterxml.jackson.databind.node.MissingNode;
  */
 public class JsonRecordObjectValidTest {
 
-    /** One step of a violation's location: an array index, or a member name. */
-    private static final Pattern STEP = Pattern.compile("(\\[\\d+\\])|\\.([^.\\[]+)");
-
     private final SweCommonJsonSchemaValidator validator = new SweCommonJsonSchemaValidator();
-
-    private final JsonEncodingRulesValidator encodingRules = new JsonEncodingRulesValidator();
 
     private File testSubjectFile;
 
@@ -83,13 +75,25 @@ public class JsonRecordObjectValidTest {
 
         JsonNode descriptor = EncodedValuesDescriptor.read(testContext, abstractTest, conformancePath);
 
+        List<String> recordLocations = new ArrayList<>();
+        JsonEncodingRulesValidator encodingRules = new JsonEncodingRulesValidator() {
+            @Override
+            public void validate(JsonNode component, JsonNode value, String location, List<String> violations,
+                    Map<String, String> unchecked) {
+                if (component != null && "DataRecord".equals(component.path("type").asText())) {
+                    recordLocations.add(location);
+                }
+                super.validate(component, value, location, violations, unchecked);
+            }
+        };
         List<String> violations = new ArrayList<>();
         Map<String, String> unchecked = new LinkedHashMap<>();
         encodingRules.validate(descriptor, testSubject, "values", violations, unchecked);
 
         // A field is valid by its descriptor only if everything nested in its value is.
         List<String> recordViolations = violations.stream()
-                .filter(line -> line.contains(": A.85") || insideRecord(descriptor, line))
+                .filter(line -> recordLocations.stream().anyMatch(location -> line.startsWith(location + ":")
+                        || line.startsWith(location + ".") || line.startsWith(location + "[")))
                 .collect(Collectors.toList());
         Assert.assertTrue(recordViolations.isEmpty(), dataValidationError(abstractTest, conformancePath,
                 "The values of DataRecord components are not JSON Objects whose members match the fields and are "
@@ -115,36 +119,12 @@ public class JsonRecordObjectValidTest {
                     String.join(System.lineSeparator(), incomplete)));
         }
 
-        if (records.isEmpty()) {
+        if (recordLocations.isEmpty()) {
             throw new SkipException(String.format(
-                    "Test skipped [%s %s]: Not applicable; the descriptor describes no DataRecord component.",
+                    "Test skipped [%s %s]: Not applicable; the encoded values contain no value of a DataRecord "
+                            + "component.",
                     abstractTest, conformancePath));
         }
-    }
-
-    /** Whether a violation's location, e.g. "values[0].wind.speed", passes through a DataRecord. */
-    private boolean insideRecord(JsonNode descriptor, String violation) {
-        String location = violation.substring(0, violation.indexOf(": "));
-        Matcher step = STEP.matcher(location.substring("values".length()));
-        JsonNode component = descriptor;
-        while (step.find()) {
-            if ("DataRecord".equals(component.path("type").asText())) {
-                return true;
-            }
-            component = step.group(1) != null ? component.path("elementType") : member(component, step.group(2));
-        }
-        return false;
-    }
-
-    private JsonNode member(JsonNode component, String name) {
-        for (String key : List.of("fields", "coordinates", "items")) {
-            for (JsonNode member : component.path(key)) {
-                if (name.equals(member.path("name").asText())) {
-                    return member;
-                }
-            }
-        }
-        return MissingNode.getInstance();
     }
 
     private JsonNode readTestSubject(String abstractTest, String conformancePath) {

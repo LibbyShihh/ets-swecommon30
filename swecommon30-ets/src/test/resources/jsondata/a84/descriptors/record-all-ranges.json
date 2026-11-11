@@ -1,0 +1,15 @@
+{
+  "type": "DataRecord",
+  "label": "Survey ranges",
+  "fields": [
+    { "name": "era", "type": "CategoryRange", "definition": "http://example.org/def/era" },
+    { "name": "counts", "type": "CountRange", "definition": "http://example.org/def/counts" },
+    { "name": "temp", "type": "QuantityRange", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } },
+    {
+      "name": "period",
+      "type": "TimeRange",
+      "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+      "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }
+    }
+  ]
+}

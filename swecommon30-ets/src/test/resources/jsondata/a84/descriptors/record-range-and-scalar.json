@@ -1,0 +1,7 @@
+{
+  "type": "DataRecord",
+  "fields": [
+    { "name": "temp", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } },
+    { "name": "tempRange", "type": "QuantityRange", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } }
+  ]
+}

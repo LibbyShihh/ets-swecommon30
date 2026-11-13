@@ -1,0 +1,15 @@
+[
+  {
+    "time": "2005-05-16T21:47:12Z",
+    "profilePoints": [
+      { "depth": 0.0, "temp": 12.5 }
+    ]
+  },
+  {
+    "time": "2005-05-16T21:48:12Z",
+    "profilePoints": [
+      { "depth": 0.0, "temp": "12.4" },
+      { "depth": 5.0, "temp": 11.8 }
+    ]
+  }
+]

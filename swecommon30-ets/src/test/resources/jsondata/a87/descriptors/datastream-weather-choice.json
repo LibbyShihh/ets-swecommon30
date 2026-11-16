@@ -1,0 +1,38 @@
+{
+  "type": "DataStream",
+  "label": "Weather data",
+  "elementType": {
+    "name": "message",
+    "type": "DataChoice",
+    "items": [
+      {
+        "name": "TEMP",
+        "type": "DataRecord",
+        "fields": [
+          {
+            "name": "time",
+            "type": "Time",
+            "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+            "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }
+          },
+          { "name": "temp", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } }
+        ]
+      },
+      {
+        "name": "WIND",
+        "type": "DataRecord",
+        "fields": [
+          {
+            "name": "time",
+            "type": "Time",
+            "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+            "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }
+          },
+          { "name": "wind_speed", "type": "Quantity", "definition": "http://example.org/def/windSpeed", "uom": { "code": "km/h" } },
+          { "name": "wind_dir", "type": "Quantity", "definition": "http://example.org/def/windDirection", "uom": { "code": "deg" } }
+        ]
+      }
+    ]
+  },
+  "encoding": { "type": "JSONEncoding" }
+}

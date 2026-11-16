@@ -1,0 +1,18 @@
+{
+  "type": "DataArray",
+  "elementType": {
+    "name": "entry",
+    "type": "DataChoice",
+    "items": [
+      {
+        "name": "inner",
+        "type": "DataChoice",
+        "items": [
+          { "name": "a", "type": "Quantity", "definition": "http://example.org/def/a", "uom": { "code": "m" } },
+          { "name": "b", "type": "Text", "definition": "http://example.org/def/b" }
+        ]
+      },
+      { "name": "plain", "type": "Quantity", "definition": "http://example.org/def/plain", "uom": { "code": "m" } }
+    ]
+  }
+}

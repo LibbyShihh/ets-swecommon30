@@ -1,0 +1,22 @@
+[
+  {
+    "time": "2005-05-16T21:47:12Z",
+    "numPoints": 5,
+    "profilePoints": [
+      { "depth": 0, "salinity": 45 },
+      { "depth": 10, "salinity": 20 },
+      { "depth": 20, "salinity": 30 },
+      { "depth": 30, "salinity": 35 },
+      { "depth": 40, "salinity": 40 }
+    ]
+  },
+  {
+    "time": "2005-05-16T22:43:05Z",
+    "numPoints": 3,
+    "profilePoints": [
+      { "depth": 0, "salinity": 45 },
+      { "depth": 10, "salinity": 20 },
+      { "depth": 20, "salinity": 30 }
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "type": "DataRecord",
+  "label": "Feature",
+  "fields": [
+    {
+      "name": "name",
+      "type": "Text",
+      "definition": "http://sensorml.com/ont/swe/property/Name",
+      "label": "Name"
+    },
+    {
+      "name": "geom",
+      "href": "http://127.0.0.1:8789/descriptors/geometry.json"
+    }
+  ]
+}

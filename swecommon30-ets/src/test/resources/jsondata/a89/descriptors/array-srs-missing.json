@@ -1,0 +1,11 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "Geometries",
+  "elementType": {
+    "name": "g",
+    "type": "Geometry",
+    "definition": "http://sensorml.com/ont/swe/property/Location",
+    "label": "G"
+  }
+}

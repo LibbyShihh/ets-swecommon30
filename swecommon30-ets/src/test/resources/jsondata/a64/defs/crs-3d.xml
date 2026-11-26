@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:GeodeticCRS xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" gml:id="crs-3d">
+  <gml:name>Test geographic 3D</gml:name>
+  <gml:ellipsoidalCS xlink:href="http://127.0.0.1:8764/defs/cs-3d.xml"/>
+  <gml:geodeticDatum xlink:href="https://epsg.org/api/v1/Datum/6326/export?format=gml"/>
+</gml:GeodeticCRS>

@@ -1,0 +1,40 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "Rec",
+  "elementType": {
+    "name": "point",
+    "type": "DataRecord",
+    "label": "Point",
+    "fields": [
+      {
+        "name": "a",
+        "type": "Quantity",
+        "definition": "http://qudt.org/vocab/quantitykind/Length",
+        "label": "A",
+        "uom": {
+          "code": "m"
+        }
+      },
+      {
+        "name": "b",
+        "type": "Quantity",
+        "definition": "http://qudt.org/vocab/quantitykind/Length",
+        "label": "B",
+        "uom": {
+          "code": "m"
+        }
+      }
+    ]
+  },
+  "encoding": {
+    "type": "JSONEncoding",
+    "recordsAsArrays": true
+  },
+  "values": [
+    [
+      1,
+      2
+    ]
+  ]
+}

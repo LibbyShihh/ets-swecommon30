@@ -1,0 +1,33 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "Choice",
+  "elementType": {
+    "name": "sel",
+    "type": "DataChoice",
+    "label": "Selection",
+    "items": [
+      {
+        "name": "on",
+        "type": "Boolean",
+        "definition": "http://sensorml.com/ont/swe/property/On",
+        "label": "On"
+      },
+      {
+        "name": "level",
+        "type": "Quantity",
+        "definition": "http://qudt.org/vocab/quantitykind/Length",
+        "label": "Level",
+        "uom": {
+          "code": "m"
+        }
+      }
+    ]
+  },
+  "values": [
+    {
+      "on": true,
+      "level": 1
+    }
+  ]
+}

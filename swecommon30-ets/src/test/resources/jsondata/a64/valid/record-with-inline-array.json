@@ -1,0 +1,34 @@
+{
+  "type": "DataRecord",
+  "label": "Instrument",
+  "fields": [
+    {
+      "name": "status",
+      "type": "Text",
+      "definition": "http://sensorml.com/ont/swe/property/Status",
+      "label": "Status",
+      "value": "ready"
+    },
+    {
+      "type": "DataArray",
+      "definition": "http://sensorml.com/ont/swe/property/Table",
+      "label": "Counts",
+      "elementCount": {
+        "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfPoints",
+        "value": 3
+      },
+      "elementType": {
+        "name": "c",
+        "type": "Count",
+        "definition": "http://sensorml.com/ont/swe/property/C",
+        "label": "C"
+      },
+      "values": [
+        1,
+        2,
+        3
+      ],
+      "name": "counts"
+    }
+  ]
+}

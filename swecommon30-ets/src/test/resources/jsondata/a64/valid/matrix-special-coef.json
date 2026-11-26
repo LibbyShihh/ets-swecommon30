@@ -1,0 +1,31 @@
+{
+  "type": "Matrix",
+  "definition": "http://sensorml.com/ont/swe/property/RotationMatrix",
+  "referenceFrame": "http://www.opengis.net/def/crs/OGC/0/ECI_J2000",
+  "label": "Matrix",
+  "elementType": {
+    "name": "row",
+    "type": "Matrix",
+    "elementType": {
+      "name": "coef",
+      "type": "Quantity",
+      "definition": "http://qudt.org/vocab/quantitykind/Length",
+      "label": "Coef",
+      "uom": {
+        "code": "1"
+      }
+    }
+  },
+  "values": [
+    [
+      1,
+      0,
+      "+Infinity"
+    ],
+    [
+      0,
+      1,
+      0
+    ]
+  ]
+}

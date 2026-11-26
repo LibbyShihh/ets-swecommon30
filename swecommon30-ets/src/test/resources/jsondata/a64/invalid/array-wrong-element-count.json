@@ -1,0 +1,22 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "Q",
+  "elementCount": {
+    "definition": "http://www.opengis.net/def/property/OGC/0/NumberOfPoints",
+    "value": 3
+  },
+  "elementType": {
+    "name": "q",
+    "type": "Quantity",
+    "definition": "http://qudt.org/vocab/quantitykind/Length",
+    "label": "Q",
+    "uom": {
+      "code": "m"
+    }
+  },
+  "values": [
+    1,
+    2
+  ]
+}

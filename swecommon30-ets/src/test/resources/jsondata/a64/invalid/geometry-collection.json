@@ -1,0 +1,18 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "G",
+  "elementType": {
+    "name": "g",
+    "type": "Geometry",
+    "definition": "http://sensorml.com/ont/swe/property/Location",
+    "label": "G",
+    "srs": "http://127.0.0.1:8764/defs/crs-2d.xml"
+  },
+  "values": [
+    {
+      "type": "GeometryCollection",
+      "geometries": []
+    }
+  ]
+}

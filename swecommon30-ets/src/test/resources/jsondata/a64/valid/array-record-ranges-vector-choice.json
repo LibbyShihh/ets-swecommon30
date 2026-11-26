@@ -1,0 +1,156 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "Ranges Vector Choice",
+  "elementType": {
+    "name": "point",
+    "type": "DataRecord",
+    "label": "Point",
+    "fields": [
+      {
+        "name": "qr",
+        "type": "QuantityRange",
+        "definition": "http://sensorml.com/ont/swe/property/Qr",
+        "label": "Qr",
+        "uom": {
+          "code": "m"
+        }
+      },
+      {
+        "name": "tr",
+        "type": "TimeRange",
+        "definition": "http://sensorml.com/ont/swe/property/Tr",
+        "label": "Tr",
+        "uom": {
+          "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
+        }
+      },
+      {
+        "name": "cr",
+        "type": "CountRange",
+        "definition": "http://sensorml.com/ont/swe/property/Cr",
+        "label": "Cr"
+      },
+      {
+        "name": "catr",
+        "type": "CategoryRange",
+        "definition": "http://sensorml.com/ont/swe/property/Catr",
+        "label": "Catr"
+      },
+      {
+        "name": "loc",
+        "type": "Vector",
+        "definition": "http://www.opengis.net/def/property/OGC/0/PlatformLocation",
+        "label": "Location",
+        "referenceFrame": "http://www.opengis.net/def/crs/EPSG/0/4326",
+        "coordinates": [
+          {
+            "name": "lat",
+            "type": "Quantity",
+            "definition": "http://qudt.org/vocab/quantitykind/Length",
+            "label": "Lat",
+            "uom": {
+              "code": "deg"
+            },
+            "axisID": "Lat"
+          },
+          {
+            "name": "lon",
+            "type": "Quantity",
+            "definition": "http://qudt.org/vocab/quantitykind/Length",
+            "label": "Lon",
+            "uom": {
+              "code": "deg"
+            },
+            "axisID": "Lon"
+          }
+        ]
+      },
+      {
+        "name": "sel",
+        "type": "DataChoice",
+        "label": "Selection",
+        "items": [
+          {
+            "name": "on",
+            "type": "Boolean",
+            "definition": "http://sensorml.com/ont/swe/property/On",
+            "label": "On"
+          },
+          {
+            "name": "level",
+            "type": "Quantity",
+            "definition": "http://qudt.org/vocab/quantitykind/Length",
+            "label": "Level",
+            "uom": {
+              "code": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "opt",
+        "type": "Quantity",
+        "definition": "http://qudt.org/vocab/quantitykind/Length",
+        "label": "Opt",
+        "uom": {
+          "code": "m"
+        },
+        "optional": true
+      }
+    ]
+  },
+  "values": [
+    {
+      "qr": [
+        "-Infinity",
+        0.0
+      ],
+      "tr": [
+        "2023-01-01T00:00:00Z",
+        "+Infinity"
+      ],
+      "cr": [
+        0,
+        12
+      ],
+      "catr": [
+        "Cenozoic",
+        "Paleozoic"
+      ],
+      "loc": {
+        "lat": 1.5,
+        "lon": 103.8
+      },
+      "sel": {
+        "on": true
+      },
+      "opt": 4
+    },
+    {
+      "qr": [
+        -12,
+        35
+      ],
+      "tr": [
+        "NaN",
+        "NaN"
+      ],
+      "cr": [
+        1,
+        2
+      ],
+      "catr": [
+        "a",
+        "b"
+      ],
+      "loc": {
+        "lat": "NaN",
+        "lon": 0
+      },
+      "sel": {
+        "level": 2.5
+      }
+    }
+  ]
+}

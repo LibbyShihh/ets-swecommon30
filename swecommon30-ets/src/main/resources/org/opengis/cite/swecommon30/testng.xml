@@ -61,6 +61,7 @@
   <test name="A.17 JSON Encoding Rules (/conf/json-encoding-rules)">
     <classes>
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonValidTest" />
+      <class name="org.opengis.cite.swecommon30.jsonschema.JsonRecordObjectValidTest" />
     </classes>
   </test>
   <!-- Add test sets for other conformance classes/levels -->

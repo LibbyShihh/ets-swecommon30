@@ -1,0 +1,12 @@
+{
+  "type": "DataArray",
+  "elementCount": { "type": "Count", "value": 2 },
+  "elementType": {
+    "name": "point",
+    "type": "DataRecord",
+    "fields": [
+      { "name": "x", "type": "Quantity", "definition": "http://example.org/def/x", "uom": { "code": "m" } },
+      { "name": "y", "type": "Quantity", "definition": "http://example.org/def/y", "uom": { "code": "m" } }
+    ]
+  }
+}

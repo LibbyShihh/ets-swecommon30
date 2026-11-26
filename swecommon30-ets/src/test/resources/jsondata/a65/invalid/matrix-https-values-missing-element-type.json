@@ -1,0 +1,7 @@
+{
+  "type": "Matrix",
+  "definition": "http://sensorml.com/ont/swe/property/RotationMatrix",
+  "referenceFrame": "http://www.opengis.net/def/crs/OGC/0/ECI_J2000",
+  "label": "3D Orientation Matrix",
+  "values": { "href": "https://example.org/data/rotation-matrix.json" }
+}

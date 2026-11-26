@@ -49,6 +49,7 @@
     <classes>
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonBlockComponentsTest" />
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonEncodedValuesTest" />
+      <class name="org.opengis.cite.swecommon30.jsonschema.JsonReferencedEncodedValuesTest" />
     </classes>
   </test>
   <test name="A.13 Geometry Components JSON Schema (/conf/json-geom-components)">

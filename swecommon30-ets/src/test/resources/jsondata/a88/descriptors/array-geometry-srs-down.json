@@ -1,0 +1,11 @@
+{
+  "type": "DataArray",
+  "label": "Locations",
+  "elementCount": { "type": "Count", "value": 2 },
+  "elementType": {
+    "name": "location",
+    "type": "Geometry",
+    "definition": "http://example.org/def/location",
+    "srs": "http://127.0.0.1:9/crs"
+  }
+}

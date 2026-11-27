@@ -1,0 +1,7 @@
+{
+  "type": "DataArray",
+  "label": "Temperatures",
+  "elementCount": { "type": "Count", "value": 2 },
+  "elementType": { "name": "temp", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } },
+  "encoding": { "type": "JSONEncoding" }
+}

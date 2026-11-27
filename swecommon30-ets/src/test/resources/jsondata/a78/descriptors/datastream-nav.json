@@ -1,0 +1,28 @@
+{
+  "type": "DataStream",
+  "label": "Aircraft Navigation",
+  "elementType": {
+    "name": "navData",
+    "type": "DataRecord",
+    "fields": [
+      {
+        "name": "time",
+        "type": "Time",
+        "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+        "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }
+      },
+      {
+        "name": "location",
+        "type": "Vector",
+        "definition": "http://www.opengis.net/def/property/OGC/0/PlatformLocation",
+        "referenceFrame": "http://www.opengis.net/def/crs/EPSG/0/4979",
+        "coordinates": [
+          { "name": "lat", "type": "Quantity", "definition": "http://sensorml.com/ont/swe/property/GeodeticLatitude", "axisID": "Lat", "uom": { "code": "deg" } },
+          { "name": "lon", "type": "Quantity", "definition": "http://sensorml.com/ont/swe/property/Longitude", "axisID": "Lon", "uom": { "code": "deg" } },
+          { "name": "alt", "type": "Quantity", "definition": "http://sensorml.com/ont/swe/property/HeightAboveEllipsoid", "axisID": "h", "uom": { "code": "m" } }
+        ]
+      }
+    ]
+  },
+  "encoding": { "type": "JSONEncoding" }
+}

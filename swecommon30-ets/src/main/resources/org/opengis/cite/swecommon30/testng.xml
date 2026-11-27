@@ -58,6 +58,11 @@
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonGeomComponentsTest" />
     </classes>
   </test>
+  <test name="A.16 General Encoding Rules (/conf/general-encoding-rules)">
+    <classes>
+      <class name="org.opengis.cite.swecommon30.jsonschema.JsonChoiceEncodingRuleTest" />
+    </classes>
+  </test>
   <test name="A.17 JSON Encoding Rules (/conf/json-encoding-rules)">
     <classes>
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonValidTest" />

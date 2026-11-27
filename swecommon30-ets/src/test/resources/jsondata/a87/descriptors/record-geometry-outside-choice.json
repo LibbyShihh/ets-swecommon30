@@ -1,0 +1,19 @@
+{
+  "type": "DataRecord",
+  "fields": [
+    {
+      "name": "location",
+      "type": "Geometry",
+      "definition": "http://example.org/def/location",
+      "srs": "http://127.0.0.1:9/crs"
+    },
+    {
+      "name": "reading",
+      "type": "DataChoice",
+      "items": [
+        { "name": "t", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } },
+        { "name": "s", "type": "Text", "definition": "http://example.org/def/status" }
+      ]
+    }
+  ]
+}

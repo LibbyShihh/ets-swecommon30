@@ -2,7 +2,6 @@ package org.opengis.cite.swecommon30.jsonschema;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +9,9 @@ import java.util.stream.Collectors;
 
 import org.opengis.cite.swecommon30.SuiteAttribute;
 import org.opengis.cite.swecommon30.util.JsonUtils;
-import org.opengis.cite.swecommon30.validation.JsonEncodingRulesValidator;
 import org.opengis.cite.swecommon30.validation.SweCommonJsonSchemaValidator;
+import org.opengis.cite.swecommon30.validation.TaggedJsonEncodingRulesValidator;
+import org.opengis.cite.swecommon30.validation.TaggedJsonEncodingRulesValidator.Violation;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.SkipException;
@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.JsonNode;
  * (/conf/json-encoding-rules): abstract test A.84.
  *
  * <p>The values are checked against their descriptor by the validator module's
- * {@link JsonEncodingRulesValidator}.</p>
+ * {@link TaggedJsonEncodingRulesValidator}.</p>
  */
 public class JsonRangeValueValidTest {
 
@@ -35,7 +35,7 @@ public class JsonRangeValueValidTest {
 
     private final SweCommonJsonSchemaValidator validator = new SweCommonJsonSchemaValidator();
 
-    private final JsonEncodingRulesValidator encodingRules = new JsonEncodingRulesValidator();
+    private final TaggedJsonEncodingRulesValidator encodingRules = new TaggedJsonEncodingRulesValidator();
 
     private File testSubjectFile;
 
@@ -78,12 +78,12 @@ public class JsonRangeValueValidTest {
 
         JsonNode descriptor = EncodedValuesDescriptor.read(testContext, abstractTest, conformancePath);
 
-        List<String> violations = new ArrayList<>();
         Map<String, String> unchecked = new LinkedHashMap<>();
-        encodingRules.validate(descriptor, testSubject, "values", violations, unchecked);
+        List<Violation> violations = encodingRules.validate(descriptor, testSubject, "values", unchecked);
 
         List<String> rangeViolations = violations.stream()
-                .filter(line -> line.contains(": A.84 "))
+                .filter(v -> "A.84".equals(v.ruleId()))
+                .map(Violation::message)
                 .collect(Collectors.toList());
         Assert.assertTrue(rangeViolations.isEmpty(), dataValidationError(abstractTest, conformancePath,
                 "The values of range components are not JSON Arrays of two values with the data type Table 3 "

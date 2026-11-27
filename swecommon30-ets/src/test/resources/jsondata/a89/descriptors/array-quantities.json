@@ -1,0 +1,14 @@
+{
+  "type": "DataArray",
+  "definition": "http://sensorml.com/ont/swe/property/Table",
+  "label": "Geometries",
+  "elementType": {
+    "name": "temp",
+    "type": "Quantity",
+    "definition": "http://sensorml.com/ont/swe/property/Temperature",
+    "label": "Temperature",
+    "uom": {
+      "code": "Cel"
+    }
+  }
+}

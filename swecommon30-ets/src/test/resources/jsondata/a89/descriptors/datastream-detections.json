@@ -1,0 +1,42 @@
+{
+  "type": "DataStream",
+  "definition": "http://sensorml.com/ont/swe/property/Detections",
+  "label": "Detections",
+  "elementType": {
+    "name": "detection",
+    "type": "DataRecord",
+    "label": "Detection",
+    "fields": [
+      {
+        "name": "time",
+        "type": "Time",
+        "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+        "label": "Time",
+        "uom": {
+          "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
+        }
+      },
+      {
+        "name": "kind",
+        "type": "Category",
+        "definition": "http://sensorml.com/ont/swe/property/VehicleType",
+        "label": "Kind"
+      },
+      {
+        "name": "geom",
+        "type": "Geometry",
+        "definition": "http://sensorml.com/ont/swe/property/Location",
+        "label": "Geom",
+        "srs": "http://127.0.0.1:8789/defs/crs-2d.xml"
+      },
+      {
+        "name": "alt",
+        "type": "Geometry",
+        "definition": "http://sensorml.com/ont/swe/property/Location",
+        "label": "Alt",
+        "optional": true,
+        "srs": "http://127.0.0.1:8789/defs/crs-3d.xml"
+      }
+    ]
+  }
+}

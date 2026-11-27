@@ -1,0 +1,182 @@
+[
+  {
+    "time": "2007-10-23T15:46:12Z",
+    "kind": "Car",
+    "geom": {
+      "type": "Point",
+      "coordinates": [
+        -86.3254,
+        35.4812
+      ]
+    },
+    "alt": {
+      "type": "Point",
+      "coordinates": [
+        -86.3254,
+        35.4812,
+        210
+      ]
+    }
+  },
+  {
+    "time": "2007-10-23T15:49:03Z",
+    "kind": "Truck",
+    "geom": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -86.3254,
+            35.4812
+          ],
+          [
+            -86.3253,
+            35.4812
+          ],
+          [
+            -86.3253,
+            35.4811
+          ],
+          [
+            -86.3254,
+            35.4811
+          ],
+          [
+            -86.3254,
+            35.4812
+          ]
+        ]
+      ]
+    },
+    "alt": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6
+        ]
+      ]
+    }
+  },
+  {
+    "time": "2007-10-23T15:56:45Z",
+    "kind": "Bus",
+    "geom": {
+      "type": "MultiPolygon",
+      "coordinates": [
+        [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ]
+      ]
+    },
+    "alt": null
+  },
+  {
+    "time": "2007-10-23T16:01:00Z",
+    "kind": "Car",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    "alt": {
+      "type": "MultiPoint",
+      "coordinates": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6
+        ]
+      ]
+    }
+  },
+  {
+    "time": "2007-10-23T16:02:00Z",
+    "kind": "Van",
+    "geom": {
+      "type": "MultiPoint",
+      "coordinates": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    "alt": {
+      "type": "MultiLineString",
+      "coordinates": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "time": "2007-10-23T16:03:00Z",
+    "kind": "Car",
+    "geom": {
+      "type": "MultiLineString",
+      "coordinates": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ]
+    }
+  }
+]

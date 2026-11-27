@@ -1,0 +1,21 @@
+[
+  {
+    "time": "yesterday",
+    "kind": "Car",
+    "geom": {
+      "type": "Point",
+      "coordinates": [
+        -86.3254,
+        35.4812
+      ]
+    },
+    "alt": {
+      "type": "Point",
+      "coordinates": [
+        -86.3254,
+        35.4812,
+        210
+      ]
+    }
+  }
+]

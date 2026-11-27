@@ -1,0 +1,15 @@
+{
+  "type": "DataRecord",
+  "fields": [
+    { "name": "temp", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } },
+    {
+      "name": "reading",
+      "type": "DataChoice",
+      "optional": true,
+      "items": [
+        { "name": "t", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } },
+        { "name": "s", "type": "Text", "definition": "http://example.org/def/status" }
+      ]
+    }
+  ]
+}

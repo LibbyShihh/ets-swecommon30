@@ -1,0 +1,5 @@
+{
+  "type": "DataArray",
+  "elementCount": { "value": 3 },
+  "elementType": { "name": "temp", "type": "Quantity", "definition": "http://example.org/def/temp", "uom": { "code": "Cel" } }
+}

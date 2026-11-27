@@ -1,0 +1,10 @@
+{
+  "type": "Vector",
+  "definition": "http://www.opengis.net/def/property/OGC/0/Location",
+  "referenceFrame": "http://www.opengis.net/def/crs/OGC/0/Cartesian3D",
+  "coordinates": [
+    { "name": "x", "type": "Quantity", "definition": "http://example.org/def/x", "axisID": "X", "uom": { "code": "m" } },
+    { "name": "y", "type": "Quantity", "definition": "http://example.org/def/y", "axisID": "Y", "uom": { "code": "m" } },
+    { "name": "z", "type": "Quantity", "definition": "http://example.org/def/z", "axisID": "Z", "uom": { "code": "m" } }
+  ]
+}

@@ -62,6 +62,7 @@
     <classes>
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonValidTest" />
       <class name="org.opengis.cite.swecommon30.jsonschema.JsonRecordObjectValidTest" />
+      <class name="org.opengis.cite.swecommon30.jsonschema.JsonVectorObjectValidTest" />
     </classes>
   </test>
   <!-- Add test sets for other conformance classes/levels -->
